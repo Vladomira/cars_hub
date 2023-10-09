@@ -32,17 +32,6 @@ const SearchBar = () => {
 
       if (manufacturer.trim() === "" && model.trim() === "") {
          return toast.warn("Please provide some input");
-         //  {
-         //     position: "top-right",
-         //     autoClose: 5000,
-         //     hideProgressBar: false,
-         //     closeOnClick: true,
-         //     pauseOnHover: true,
-         //     draggable: true,
-         //     progress: undefined,
-         //     theme: "light",
-         //     });
-         //  return alert("Please provide some input");
       }
 
       updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase());
