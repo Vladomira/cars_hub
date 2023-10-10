@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 
 export type CustomButtonProps = {
    title: string;
@@ -11,8 +11,8 @@ export type CustomButtonProps = {
 };
 
 export type SearchManufacturerProps = {
-   manufacturer: string;
-   setManufacturer: (manufacturer: string) => void;
+   selected: string;
+   setSelected: (manufacturer: string) => void;
 };
 
 export type CarProps = {
@@ -33,4 +33,32 @@ export type CardDetailsProps = {
    isOpen: boolean;
    closeModal: () => void;
    car: CarProps;
+};
+export type FilterProps = {
+   manufacturer: string;
+   year: number | string;
+   fuel: string;
+   limit: number;
+   model: string;
+};
+
+export type OptionProps = {
+   title: string;
+   value: string;
+};
+export type CustomFilterProps = {
+   title: string;
+   options: OptionProps[];
+   setFilter: (filter: string) => void;
+};
+
+export type ShowMoreProps = {
+   pageNumber: number;
+   isNext: boolean;
+   setLimit: (limit: number) => void;
+};
+
+export type SearchBarProps = {
+   setManufacturer: (manufacturer: string) => void;
+   setModel: (model: string) => void;
 };

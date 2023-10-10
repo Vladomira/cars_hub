@@ -5,11 +5,10 @@ import Image from "next/image";
 import { SearchManufacturerProps } from "@/types";
 import { Combobox, Transition } from "@headlessui/react";
 import { manufacturers } from "@/constants";
-import { spawn } from "child_process";
 
 const SearchMaufacturer = ({
-   manufacturer,
-   setManufacturer,
+   selected,
+   setSelected,
 }: SearchManufacturerProps) => {
    const [query, setQuery] = useState<string>("");
 
@@ -25,7 +24,7 @@ const SearchMaufacturer = ({
 
    return (
       <div className="search-manufacturer">
-         <Combobox value={manufacturer} onChange={setManufacturer}>
+         <Combobox value={selected} onChange={setSelected}>
             <div className="relative w-full">
                <Combobox.Button className={"absolute top-[14px]"}>
                   {" "}
@@ -79,11 +78,9 @@ const SearchMaufacturer = ({
                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
                                           active
                                              ? "text-white"
-                                             : "text-teal-600"
+                                             : "text-pribg-primary-purple"
                                        }`}
-                                    >
-                                       {item}
-                                    </span>
+                                    />
                                  ) : null}
                               </>
                            )}

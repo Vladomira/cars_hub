@@ -1,12 +1,50 @@
-import { CarCard, CustomFilter, Hero, SearchBar } from "@/components";
-import { fetchCars } from "@/utils";
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import {
+   CarCard,
+   CustomFilter,
+   Hero,
+   Loader,
+   SearchBar,
+   ShowMore,
+} from "@/components";
+import { fuels, yearsOfProduction } from "@/constants";
+import { fetchCars } from "@/utils";
 
-export default async function Home() {
-   const allCars = await fetchCars();
-   console.log(allCars);
-   const isDataEmpty =
-      !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+export default function Home() {
+   const [allCars, setAllCars] = useState([]);
+   const [loading, setLoading] = useState<boolean>(false);
+   // search
+   const [manufacturer, setManufacturer] = useState<string>("");
+   const [model, setModel] = useState<string>("");
+   //filter
+   const [fuel, setFuel] = useState<string>("");
+   const [year, setYear] = useState<number | string>(2022);
+   // pagination
+   const [limit, setLimit] = useState<number>(10);
+
+   const getCars = async () => {
+      setLoading(true);
+      try {
+         const result = await fetchCars({
+            manufacturer: manufacturer || "",
+            year: year || 2022,
+            fuel: fuel || "",
+            limit: limit || 10,
+            model: model || "",
+         });
+
+         setAllCars(result);
+      } catch (error) {
+         console.log(error);
+      } finally {
+         setLoading(false);
+      }
+   };
+   useEffect(() => {
+      getCars();
+   }, [fuel, year, limit, manufacturer, model]);
 
    return (
       <main className="overflow-hidden">
@@ -17,25 +55,48 @@ export default async function Home() {
                <p>Explore the cars you might like</p>
             </div>
             <div className="home__filters">
-               <SearchBar />
+               <SearchBar
+                  setManufacturer={setManufacturer}
+                  setModel={setModel}
+               />
                <div className="home__filter-container">
-                  <CustomFilter title="fuel" />
-                  <CustomFilter title="year" />
+                  <CustomFilter
+                     title="fuel"
+                     options={fuels}
+                     setFilter={setFuel}
+                  />
+                  <CustomFilter
+                     title="year"
+                     options={yearsOfProduction}
+                     setFilter={setYear}
+                  />
                </div>
             </div>
 
-            {!isDataEmpty ? (
+            {allCars.length > 0 ? (
                <section>
                   <div className="home__cars-wrapper">
                      {allCars?.map((car, idx) => (
                         <CarCard car={car} key={idx} />
                      ))}
                   </div>
+
+                  {loading && (
+                     <div className="mt-16 w-full flex-center">
+                        <Loader />
+                     </div>
+                  )}
+                  <ShowMore
+                     pageNumber={limit / 10}
+                     isNext={limit > allCars.length}
+                     setLimit={setLimit}
+                  />
                </section>
             ) : (
                <div className="home__error-container">
-                  <h2 className="text-black text-xl font-bold">no results</h2>
-                  <p>{allCars?.message}</p>
+                  <h2 className="text-black text-xl font-bold">
+                     Oops, no results
+                  </h2>
                </div>
             )}
          </div>

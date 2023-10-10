@@ -8,6 +8,8 @@ import SearchManufacturer from "./SearchManufacturer";
 import CarCard from "./CarCard";
 import CarDetails from "./CarDetails";
 import Notification from "./Notification";
+import ShowMore from "./ShowMore";
+import Loader from "./Loader";
 
 export {
    Hero,
@@ -20,4 +22,6 @@ export {
    CarCard,
    CarDetails,
    Notification,
+   ShowMore,
+   Loader,
 };
