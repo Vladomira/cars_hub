@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import {
    CarCard,
    CustomFilter,
@@ -9,7 +8,7 @@ import {
    SearchBar,
    ShowMore,
 } from "@/components";
-import { fuels, yearsOfProduction } from "@/constants";
+import { fuels, yearsOfProduction } from "@/lib/constants";
 import { fetchCars } from "@/utils";
 
 export default function Home() {
@@ -37,7 +36,7 @@ export default function Home() {
 
          setAllCars(result);
       } catch (error) {
-         console.log(error);
+         return { error: "Something went wrong!" };
       } finally {
          setLoading(false);
       }

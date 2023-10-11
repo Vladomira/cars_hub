@@ -2,11 +2,13 @@
 import { Fragment, useState } from "react";
 import Image from "next/image";
 import { Listbox, Transition } from "@headlessui/react";
+import { usePathname } from "next/navigation";
 
 import { CustomFilterProps, OptionProps } from "@/types";
 
 const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
    const [selected, setSelected] = useState<OptionProps>(options[0]);
+   const pathname = usePathname();
 
    return (
       <>
