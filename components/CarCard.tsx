@@ -6,7 +6,7 @@ import { CarProps } from "@/types";
 import { CustomButton } from ".";
 import { calculateCarRent, generateCarImageUrl, makeParagraph } from "@/utils";
 import CarDetails from "./CarDetails";
-import { carCharacteristics } from "@/constants";
+import { carCharacteristics } from "@/lib/constants";
 
 interface CarCardprops {
    car: CarProps;

@@ -6,7 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 
 import { CardDetailsProps } from "@/types";
 import { generateCarImageUrl } from "@/utils";
-import { carAngles } from "@/constants";
+import { carAngles } from "@/lib/constants";
 
 const CarDetails = ({ isOpen, closeModal, car }: CardDetailsProps) => {
    return (

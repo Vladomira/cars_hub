@@ -10,11 +10,14 @@ export async function fetchCars(filters: FilterProps) {
       "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
    };
    const url = `${BASE_URL}make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`;
+   try {
+      const response = await fetch(url, { headers });
+      const result = await response.json();
 
-   const response = await fetch(url, { headers });
-   const result = await response.json();
-
-   return result;
+      return result;
+   } catch (error) {
+      return { error: "Something went wrong!" };
+   }
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
