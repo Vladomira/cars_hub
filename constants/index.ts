@@ -100,3 +100,5 @@ export const footerLinks = [
    },
 ];
 export const carAngles = ["29", "5", "13"]; //33
+
+export const carCharacteristics = ["steering-wheel", "tire", "gas"];

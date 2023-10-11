@@ -27,6 +27,7 @@ const Hero = () => {
                   src="/hero.png"
                   alt="hero"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
                   className="object-contain"
                />
             </div>

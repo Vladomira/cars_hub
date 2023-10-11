@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import SearchManufacturer from "./SearchManufacturer";
 import { Notification } from ".";
@@ -26,15 +25,12 @@ const SearchBar = ({ setManufacturer, setModel }: SearchBarProps) => {
    const [searchManufacturer, setSearchManufacturer] = useState<string>("");
    const [searchModel, setSearchModel] = useState<string>("");
 
-   const router = useRouter();
-
    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       if (searchManufacturer.trim() === "" && searchModel.trim() === "") {
          return toast.warn("Please fill in the search bar");
       }
-
       setModel(searchModel);
       setManufacturer(searchManufacturer);
    };

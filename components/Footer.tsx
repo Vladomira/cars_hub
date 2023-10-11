@@ -24,10 +24,19 @@ const Footer = () => {
                      <h3 className="font-bold">{link.title}</h3>
                      {link.links.map((item) => (
                         <Link
-                           href={"item.url"}
+                           href={item.url}
                            key={item.title}
-                           className="text-gray-500"
+                           className="text-gray-500 flex gap-2"
                         >
+                           {link.title === "Socials" && (
+                              <Image
+                                 src={`/${item.title.toLowerCase()}.svg`}
+                                 alt={"item.title"}
+                                 width={20}
+                                 height={20}
+                                 className="object-contain"
+                              />
+                           )}
                            {item.title}
                         </Link>
                      ))}

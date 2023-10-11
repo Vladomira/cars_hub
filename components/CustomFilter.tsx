@@ -1,7 +1,6 @@
 "use client";
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { Listbox, Transition } from "@headlessui/react";
 
 import { CustomFilterProps, OptionProps } from "@/types";
@@ -16,7 +15,6 @@ const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
                value={selected}
                onChange={(e) => {
                   setSelected(e);
-                  setFilter(e.value);
                }}
             >
                <div className="relative w-fit z-10">

@@ -48,6 +48,7 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
 };
 
 export const updateSearchParams = (type: string, value: string) => {
+   "for serverside code but it is reload page";
    const searchParams = new URLSearchParams(window.location.search);
 
    searchParams.set(type, value);
@@ -59,6 +60,23 @@ export const updateSearchParams = (type: string, value: string) => {
 
 export const isExistSearchParams = () => {
    const searchParams = new URLSearchParams(window.location.search);
-   console.log(searchParams.get("model"));
    return searchParams.get("model") || null;
+};
+
+export const makeParagraph = (
+   str: string,
+   drive: string,
+   city_mpg: number,
+   transmission: string
+) => {
+   switch (str) {
+      case "steering-wheel":
+         return transmission === "a" ? "Automatic" : "Manual";
+
+      case "tire":
+         return drive.toUpperCase();
+
+      case "gas":
+         return `${city_mpg} MPG`;
+   }
 };

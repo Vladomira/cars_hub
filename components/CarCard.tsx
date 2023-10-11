@@ -4,8 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { CarProps } from "@/types";
 import { CustomButton } from ".";
-import { calculateCarRent, generateCarImageUrl } from "@/utils";
+import { calculateCarRent, generateCarImageUrl, makeParagraph } from "@/utils";
 import CarDetails from "./CarDetails";
+import { carCharacteristics } from "@/constants";
 
 interface CarCardprops {
    car: CarProps;
@@ -15,7 +16,10 @@ const CarCard = ({ car }: CarCardprops) => {
    const [isOpen, setIsOpen] = useState(false);
    const { city_mpg, year, make, model, transmission, drive } = car;
 
+   const normalizeName = (str: string) => str.replace(/-/g, " ");
+
    const carRent = calculateCarRent(city_mpg, year);
+
    return (
       <div className="car-card group">
          <div className="car-card__content">
@@ -42,35 +46,23 @@ const CarCard = ({ car }: CarCardprops) => {
 
          <div className="relative flex w-full mt-2">
             <div className="flex group-hover:invisible w-full justify-between to-gray">
-               <div className="flex flex-col justify-center items-center gap-2">
-                  <Image
-                     src={"/steering-wheel.svg"}
-                     width={20}
-                     height={20}
-                     alt={"steering wheel"}
-                  />
+               {carCharacteristics.map((item: string) => (
+                  <div
+                     key={item}
+                     className="flex flex-col justify-center items-center gap-2"
+                  >
+                     <Image
+                        src={`/${item}.svg`}
+                        width={20}
+                        height={20}
+                        alt={normalizeName(item)}
+                     />
 
-                  <p className="text-[14px]">
-                     {transmission === "a" ? "Automatic" : "Manual"}
-                  </p>
-               </div>
-
-               <div className="flex flex-col justify-center items-center gap-2">
-                  <Image
-                     src={"/tire.svg"}
-                     width={20}
-                     height={20}
-                     alt={"tire"}
-                  />
-
-                  <p className="text-[14px]">{drive.toUpperCase()}</p>
-               </div>
-
-               <div className="flex flex-col justify-center items-center gap-2">
-                  <Image src={"/gas.svg"} width={20} height={20} alt={"gas"} />
-
-                  <p className="text-[14px]">{city_mpg} MPG</p>
-               </div>
+                     <p className="text-[14px]">
+                        {makeParagraph(item, drive, city_mpg, transmission)}
+                     </p>
+                  </div>
+               ))}
             </div>
 
             <div className="car-card__btn-container">

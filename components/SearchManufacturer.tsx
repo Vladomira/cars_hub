@@ -27,7 +27,6 @@ const SearchMaufacturer = ({
          <Combobox value={selected} onChange={setSelected}>
             <div className="relative w-full">
                <Combobox.Button className={"absolute top-[14px]"}>
-                  {" "}
                   <Image
                      src="/car-logo.svg"
                      alt={"Car Logo"}
