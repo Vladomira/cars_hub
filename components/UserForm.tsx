@@ -1,12 +1,14 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { FormType, UserDataForm } from "@/types";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
+import * as rdd from "react-device-detect";
+
+import { AuthContext } from "@/context/AuthContext";
+import { FormType, UserDataForm } from "@/types";
 import { Notification } from "@/components";
 import { emailFormRule, passwordFormRule } from "@/lib/constants";
-
-import { useForm } from "react-hook-form";
 
 export const UserForm = () => {
    const { login, signup, user, error, setError, loginWithGoogle } =
@@ -19,8 +21,8 @@ export const UserForm = () => {
       watch,
       setValue,
    } = useForm<UserDataForm>();
-   const isMobile = window.innerWidth < 768;
    const [formType, setFormType] = useState<FormType>(FormType.Signup);
+   const isMobile = rdd.isMobile;
 
    const router = useRouter();
 
