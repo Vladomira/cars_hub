@@ -9,7 +9,8 @@ import { emailFormRule, passwordFormRule } from "@/lib/constants";
 import { useForm } from "react-hook-form";
 
 export const UserForm = () => {
-   const { login, signup, user, error, setError } = useContext(AuthContext);
+   const { login, signup, user, error, setError, loginWithGoogle } =
+      useContext(AuthContext);
    const {
       handleSubmit,
       formState: { errors },
@@ -18,6 +19,7 @@ export const UserForm = () => {
       watch,
       setValue,
    } = useForm<UserDataForm>();
+   const isMobile = window.innerWidth < 768;
    const [formType, setFormType] = useState<FormType>(FormType.Signup);
 
    const router = useRouter();
@@ -27,7 +29,7 @@ export const UserForm = () => {
       if (email !== "" && password !== "") {
          try {
             switch (formType) {
-               case FormType.Signin:
+               case FormType.Login:
                   return login({ email, password });
 
                case FormType.Signup:
@@ -48,10 +50,11 @@ export const UserForm = () => {
 
    const changeFormType = () => {
       formType === FormType.Signup
-         ? setFormType(FormType.Signin)
+         ? setFormType(FormType.Login)
          : setFormType(FormType.Signup);
       setError("");
    };
+
    return (
       <>
          <h1 className="mt-60 mb-30">{formType}</h1>
@@ -148,6 +151,12 @@ export const UserForm = () => {
             <button type="submit" className="mt-10">
                Submit
             </button>
+            <button
+               type="button"
+               onClick={() => loginWithGoogle(isMobile ? "mobile" : "desktop")}
+            >
+               Login with Google
+            </button>
             <div className="mt-10 flex">
                <div className="flex">
                   {formType === FormType.Signup
@@ -160,7 +169,7 @@ export const UserForm = () => {
                      onClick={() => changeFormType()}
                   >
                      {formType === FormType.Signup
-                        ? FormType.Signin
+                        ? FormType.Login
                         : FormType.Signup}
                   </button>
                </div>

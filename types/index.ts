@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import React, { MouseEventHandler } from "react";
 
 export type CustomButtonProps = {
@@ -69,34 +70,37 @@ export type UserDataForm = {
    password: string;
    confirmPassword: string;
 };
-export type SafeUserData = { email: string; id: string };
+
 export enum FormType {
    Signup = "Signup",
-   Signin = "Signin",
+   Login = "Login",
 }
 // ****
 
 // context
-
 export type UserFromForm = Omit<UserDataForm, "confirmPassword">;
 export type AuthInstance = {
-   user: SafeUserData | null;
-   setUser: (user: SafeUserData) => void;
-   loading: boolean;
+   user: User | null;
+   setUser: (user: User) => void;
+   // loading: boolean;
    login: (user: UserFromForm) => void;
    signup: (user: UserFromForm) => void;
    logout: () => void;
+   loginWithGoogle: (device: DeviceType) => void;
    error: string;
    setError: (error: string) => void;
 };
 
 export const initialContextState = {
    user: null,
-   setUser: (user: SafeUserData) => {},
-   loading: false,
+   setUser: (user: User) => {},
+   // loading: false,
    login: (user: UserFromForm) => {},
    signup: (user: UserFromForm) => {},
+   loginWithGoogle: () => {},
    logout: () => {},
    error: "",
    setError: () => {},
 };
+
+export type DeviceType = "mobile" | "desktop";
