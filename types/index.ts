@@ -62,3 +62,41 @@ export type SearchBarProps = {
    setManufacturer: (manufacturer: string) => void;
    setModel: (model: string) => void;
 };
+
+// User
+export type UserDataForm = {
+   email: string;
+   password: string;
+   confirmPassword: string;
+};
+export type SafeUserData = { email: string; id: string };
+export enum FormType {
+   Signup = "Signup",
+   Signin = "Signin",
+}
+// ****
+
+// context
+
+export type UserFromForm = Omit<UserDataForm, "confirmPassword">;
+export type AuthInstance = {
+   user: SafeUserData | null;
+   setUser: (user: SafeUserData) => void;
+   loading: boolean;
+   login: (user: UserFromForm) => void;
+   signup: (user: UserFromForm) => void;
+   logout: () => void;
+   error: string;
+   setError: (error: string) => void;
+};
+
+export const initialContextState = {
+   user: null,
+   setUser: (user: SafeUserData) => {},
+   loading: false,
+   login: (user: UserFromForm) => {},
+   signup: (user: UserFromForm) => {},
+   logout: () => {},
+   error: "",
+   setError: () => {},
+};

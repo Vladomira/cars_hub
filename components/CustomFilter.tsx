@@ -2,13 +2,11 @@
 import { Fragment, useState } from "react";
 import Image from "next/image";
 import { Listbox, Transition } from "@headlessui/react";
-import { usePathname } from "next/navigation";
 
 import { CustomFilterProps, OptionProps } from "@/types";
 
 const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
    const [selected, setSelected] = useState<OptionProps>(options[0]);
-   const pathname = usePathname();
 
    return (
       <>
@@ -16,6 +14,7 @@ const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
             <Listbox
                value={selected}
                onChange={(e) => {
+                  setFilter(e.value);
                   setSelected(e);
                }}
             >

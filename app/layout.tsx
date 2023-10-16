@@ -1,6 +1,7 @@
 import { Footer, Navbar } from "@/components";
 import "./globals.css";
 import type { Metadata } from "next";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
    title: "Car Hub",
@@ -15,9 +16,13 @@ export default function RootLayout({
    return (
       <html lang="en">
          <body className="relative">
-            <Navbar />
-            {children}
-            <Footer />
+            <AuthProvider>
+               <main className="overflow-hidden">
+                  <Navbar />
+                  {children}
+                  <Footer />
+               </main>
+            </AuthProvider>
          </body>
       </html>
    );

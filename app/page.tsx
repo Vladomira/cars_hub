@@ -33,7 +33,6 @@ export default function Home() {
             limit: limit || 10,
             model: model || "",
          });
-
          setAllCars(result);
       } catch (error) {
          return { error: "Something went wrong!" };
@@ -41,12 +40,13 @@ export default function Home() {
          setLoading(false);
       }
    };
+
    useEffect(() => {
       getCars();
    }, [fuel, year, limit, manufacturer, model]);
 
    return (
-      <main className="overflow-hidden">
+      <>
          <Hero />
          <div className="mt-12 padding-x padding-y max-width" id="discover">
             <div className="home__text-container">
@@ -72,7 +72,7 @@ export default function Home() {
                </div>
             </div>
 
-            {allCars.length > 0 ? (
+            {allCars?.length > 0 ? (
                <section>
                   <div className="home__cars-wrapper">
                      {allCars?.map((car, idx) => (
@@ -99,6 +99,6 @@ export default function Home() {
                </div>
             )}
          </div>
-      </main>
+      </>
    );
 }
