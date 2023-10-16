@@ -36,16 +36,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
    const [loading, setLoading] = useState<boolean>(true);
    const [error, setError] = useState<string>("");
 
-   useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-         if (firebaseUser) {
-            setUser(firebaseUser);
-         } else {
-            setUser(null);
-         }
-      });
-      return () => unsubscribe();
-   }, []);
+   // useEffect(() => {
+   //    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+   //       if (firebaseUser) {
+   //          setUser(firebaseUser);
+   //       } else {
+   //          setUser(null);
+   //       }
+   //    });
+   //    return () => unsubscribe();
+   // }, []);
 
    const login = async ({ email, password }: UserFromForm) => {
       try {
