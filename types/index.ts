@@ -82,7 +82,7 @@ export type UserFromForm = Omit<UserDataForm, "confirmPassword">;
 export type AuthInstance = {
    user: User | null;
    setUser: (user: User) => void;
-   // loading: boolean;
+   loading: boolean;
    login: (user: UserFromForm) => void;
    signup: (user: UserFromForm) => void;
    logout: () => void;
@@ -94,7 +94,7 @@ export type AuthInstance = {
 export const initialContextState = {
    user: null,
    setUser: (user: User) => {},
-   // loading: false,
+   loading: false,
    login: (user: UserFromForm) => {},
    signup: (user: UserFromForm) => {},
    loginWithGoogle: () => {},
