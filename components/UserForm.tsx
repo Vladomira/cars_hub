@@ -1,15 +1,18 @@
+"use client";
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { FormType, UserDataForm } from "@/types";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
+import * as rdd from "react-device-detect";
+
+import { AuthContext } from "@/context/AuthContext";
+import { FormType, UserDataForm } from "@/types";
 import { Notification } from "@/components";
 import { emailFormRule, passwordFormRule } from "@/lib/constants";
 
-import { useForm } from "react-hook-form";
-
 export const UserForm = () => {
-   const { login, signup, user, error, setError } = useContext(AuthContext);
+   const { login, signup, user, error, setError, loginWithGoogle } =
+      useContext(AuthContext);
    const {
       handleSubmit,
       formState: { errors },
@@ -19,24 +22,24 @@ export const UserForm = () => {
       setValue,
    } = useForm<UserDataForm>();
    const [formType, setFormType] = useState<FormType>(FormType.Signup);
+   const isMobile = rdd.isMobile;
 
    const router = useRouter();
 
    const onSubmit = async (data: UserDataForm) => {
-      const { email, password } = data;
-      if (email !== "" && password !== "") {
-         try {
-            switch (formType) {
-               case FormType.Signin:
-                  return login({ email, password });
-
-               case FormType.Signup:
-                  return signup({ email, password });
-            }
-         } catch (error: any) {
-            return error.message;
-         }
-      }
+      // const { email, password } = data;
+      // if (email !== "" && password !== "") {
+      //    try {
+      //       switch (formType) {
+      //          case FormType.Login:
+      //             return login({ email, password });
+      //          case FormType.Signup:
+      //             return signup({ email, password });
+      //       }
+      //    } catch (error: any) {
+      //       return error.message;
+      //    }
+      // }
    };
    useEffect(() => {
       if (user) {
@@ -48,10 +51,11 @@ export const UserForm = () => {
 
    const changeFormType = () => {
       formType === FormType.Signup
-         ? setFormType(FormType.Signin)
+         ? setFormType(FormType.Login)
          : setFormType(FormType.Signup);
       setError("");
    };
+
    return (
       <>
          <h1 className="mt-60 mb-30">{formType}</h1>
@@ -148,6 +152,12 @@ export const UserForm = () => {
             <button type="submit" className="mt-10">
                Submit
             </button>
+            <button
+               type="button"
+               onClick={() => loginWithGoogle(isMobile ? "mobile" : "desktop")}
+            >
+               Login with Google
+            </button>
             <div className="mt-10 flex">
                <div className="flex">
                   {formType === FormType.Signup
@@ -160,7 +170,7 @@ export const UserForm = () => {
                      onClick={() => changeFormType()}
                   >
                      {formType === FormType.Signup
-                        ? FormType.Signin
+                        ? FormType.Login
                         : FormType.Signup}
                   </button>
                </div>

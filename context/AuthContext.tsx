@@ -6,10 +6,10 @@ import React, {
    useState,
    ReactNode,
 } from "react";
-import { auth } from "@/firebase/config";
+import { auth, provider } from "@/firebase/config";
 import {
    AuthInstance,
-   SafeUserData,
+   DeviceType,
    initialContextState,
    UserFromForm,
 } from "@/types";
@@ -17,8 +17,14 @@ import {
    loginEmailPassword,
    logoutAuth,
    signupEmailPassword,
+   loginGoogle,
 } from "@/firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
+import {
+   GoogleAuthProvider,
+   User,
+   onAuthStateChanged,
+   signInWithRedirect,
+} from "firebase/auth";
 
 type AuthProviderProps = {
    children: ReactNode;
@@ -26,23 +32,20 @@ type AuthProviderProps = {
 export const AuthContext = createContext<AuthInstance>(initialContextState);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-   const [user, setUser] = useState<SafeUserData | null>(null);
+   const [user, setUser] = useState<User | null>(null);
    const [loading, setLoading] = useState<boolean>(true);
    const [error, setError] = useState<string>("");
 
-   useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-         if (firebaseUser) {
-            setUser({
-               id: firebaseUser.uid,
-               email: firebaseUser.email as string,
-            });
-         } else {
-            setUser(null);
-         }
-      });
-      return () => unsubscribe();
-   }, []);
+   // useEffect(() => {
+   //    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+   //       if (firebaseUser) {
+   //          setUser(firebaseUser);
+   //       } else {
+   //          setUser(null);
+   //       }
+   //    });
+   //    return () => unsubscribe();
+   // }, []);
 
    const login = async ({ email, password }: UserFromForm) => {
       try {
@@ -61,15 +64,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
    };
    const logout = async () => await logoutAuth();
 
+   // google
+   const loginWithGoogle = async (device: DeviceType) => {
+      try {
+         if (device === "mobile") {
+            signInWithRedirect(auth, provider);
+         }
+         const result = await loginGoogle(device);
+         if (result) {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken; //if need
+            setUser(result.user);
+         }
+      } catch (error: any) {
+         const credential = GoogleAuthProvider.credentialFromError(error);
+         setError(error.message);
+      }
+   };
+
    return (
       <AuthContext.Provider
          value={{
             user,
-            loading,
             login,
             signup,
+            loading,
             logout,
             setUser,
+            loginWithGoogle,
             error,
             setError,
          }}
