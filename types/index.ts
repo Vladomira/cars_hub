@@ -63,7 +63,10 @@ export type SearchBarProps = {
    setManufacturer: (manufacturer: string) => void;
    setModel: (model: string) => void;
 };
-
+export type PatternRule = {
+   value: RegExp;
+   message: string;
+};
 // User
 export type UserDataForm = {
    email: string;

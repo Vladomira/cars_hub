@@ -35,6 +35,9 @@
 .custom-btn {
    @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
 }
+.btn-bg {
+   @apply shadow-lg shadow-slate-900 bg-slate-800 rounded-lg;
+}
 /* END: General styles */
 
 /* START: Hero styles */

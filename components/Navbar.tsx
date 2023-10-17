@@ -18,21 +18,21 @@ const Navbar = () => {
             <Logo />
 
             <div className="flex items-center ">
-               {user && (
-                  <p className="text-white mr-4">Welcome, {user.email}</p>
-               )}
                {user?.email ? (
-                  <CustomButton
-                     title={"Logout"}
-                     btnType="button"
-                     containerStyles="text-primary-blue rounded-full bg-white min-w-[130px]"
-                     handleClick={() => logout()}
-                  />
+                  <>
+                     <p className="text-white mr-4">Welcome, {user.email}</p>
+                     <CustomButton
+                        title={"Logout"}
+                        btnType="button"
+                        containerStyles="text-primary-blue rounded-full bg-white min-w-[130px] btn-bg  text-red-300"
+                        handleClick={() => logout()}
+                     />
+                  </>
                ) : (
                   <CustomButton
                      title={"Sign In"}
                      btnType="button"
-                     containerStyles="text-primary-blue rounded-full bg-white min-w-[130px]"
+                     containerStyles="text-primary-blue rounded-full bg-white min-w-[130px] btn-bg text-red-300"
                      handleClick={() => router.push("/auth")}
                   />
                )}
