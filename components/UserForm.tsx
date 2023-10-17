@@ -27,19 +27,19 @@ export const UserForm = () => {
    const router = useRouter();
 
    const onSubmit = async (data: UserDataForm) => {
-      // const { email, password } = data;
-      // if (email !== "" && password !== "") {
-      //    try {
-      //       switch (formType) {
-      //          case FormType.Login:
-      //             return login({ email, password });
-      //          case FormType.Signup:
-      //             return signup({ email, password });
-      //       }
-      //    } catch (error: any) {
-      //       return error.message;
-      //    }
-      // }
+      const { email, password } = data;
+      if (email !== "" && password !== "") {
+         try {
+            switch (formType) {
+               case FormType.Login:
+                  return login({ email, password });
+               case FormType.Signup:
+                  return signup({ email, password });
+            }
+         } catch (error: any) {
+            return error.message;
+         }
+      }
    };
    useEffect(() => {
       if (user) {
