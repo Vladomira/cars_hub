@@ -57,8 +57,8 @@ export const UserForm = () => {
    };
 
    return (
-      <>
-         <h1 className="mt-60 mb-30">{formType}</h1>
+      <div className="flex flex-col justify-center items-center  text-gray-400">
+         <h1 className="">{formType}</h1>
          <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col mt-10 "
@@ -79,76 +79,73 @@ export const UserForm = () => {
                   }}
                />
                {errors.email && (
-                  <small className="text-danger">{errors.email.message}</small>
+                  <p className="text-danger">{errors.email.message}</p>
                )}
             </label>
-            <label htmlFor="password" className="flex justify-between flex-col">
-               <div className="flex ">
-                  {" "}
-                  <p>Password</p>
-                  <input
-                     id="password"
-                     type="password"
-                     placeholder="password"
-                     autoComplete="off"
-                     className={`form-control ml-3 ${
-                        errors.password && "invalid"
-                     }`}
-                     required={true}
-                     {...register("password", {
-                        required: "You must specify a password",
-                        pattern: passwordFormRule,
+            <label htmlFor="password" className="flex justify-between mb-5">
+               {" "}
+               <p>Password</p>
+               <input
+                  id="password"
+                  type="password"
+                  placeholder="password"
+                  autoComplete="off"
+                  required={true}
+                  {...register("password", {
+                     required: "You must specify a password",
+                     pattern: passwordFormRule,
 
-                        minLength: {
-                           value: 6,
-                           message: "Password must be at least 6 characters",
-                        },
-                     })}
-                     onKeyUp={() => {
-                        setError(""),
-                           trigger("password", { shouldFocus: true });
-                     }}
-                  />
-               </div>
-
+                     minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters",
+                     },
+                  })}
+                  onKeyUp={() => {
+                     setError(""), trigger("password", { shouldFocus: true });
+                  }}
+               />
                {errors.password && (
                   <small className="text-danger">
                      {errors.password.message}
                   </small>
                )}
             </label>
-            {error && <p className="text-red-500 mt-3">{error}</p>}
             {formType === FormType.Signup && (
                <div>
-                  <label>Confirm your password</label>
-                  <input
-                     id="confirmPassword"
-                     type="password"
-                     {...register("confirmPassword", {
-                        validate: (value) =>
-                           value === watch("password", "") ||
-                           "The passwords do not match",
-                     })}
-                     placeholder="confirm password"
-                     autoComplete="off"
-                     onPaste={(e) => {
-                        e.preventDefault();
-                        return false;
-                     }}
-                     className={`form-control mt-4`}
-                     required={true}
-                     onKeyUp={() => {
-                        setError(""), trigger("confirmPassword");
-                     }}
-                  />
+                  <label
+                     className="flex justify-between"
+                     htmlFor="confirmPassword"
+                  >
+                     Confirm password
+                     <input
+                        id="confirmPassword"
+                        type="password"
+                        {...register("confirmPassword", {
+                           validate: (value) =>
+                              value === watch("password", "") ||
+                              "The passwords do not match",
+                        })}
+                        placeholder="confirm password"
+                        autoComplete="off"
+                        onPaste={(e) => {
+                           e.preventDefault();
+                           return false;
+                        }}
+                        className="ml-2"
+                        required={true}
+                        onKeyUp={() => {
+                           setError(""), trigger("confirmPassword");
+                        }}
+                     />
+                  </label>
                   {errors.confirmPassword && (
                      <small className="text-danger">
                         {errors.confirmPassword.message}
                      </small>
                   )}
                </div>
-            )}
-
+            )}{" "}
+            {error && <p className="text-red-500 mt-3">{error}</p>}
             <button type="submit" className="mt-10">
                Submit
             </button>
@@ -177,6 +174,6 @@ export const UserForm = () => {
             </div>
          </form>
          <Notification />
-      </>
+      </div>
    );
 };
