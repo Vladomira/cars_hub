@@ -6,7 +6,7 @@ import { UserForm } from "@/components/UserForm";
 
 function Signup() {
    return (
-      <div className="flex justify-center  pb-10">
+      <div className="flex justify-center pb-24  bg-[url('/background/red-car.jpg')] bg-no-repeat bg-center bg-cover">
          <div className="">
             <UserForm />
          </div>

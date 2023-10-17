@@ -24,6 +24,9 @@ module.exports = {
             },
             grey: "#747A88",
          },
+         backgroundColor: {
+            "custom-background": "#3c2922",
+         },
          backgroundImage: {
             pattern: "url('/pattern.png')",
             "hero-bg": "url('/hero-bg.png')",
