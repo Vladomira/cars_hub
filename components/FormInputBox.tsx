@@ -1,25 +1,25 @@
+import { FormInputProps } from "@/types";
 import React, { FC } from "react";
-import { FieldError } from "react-hook-form";
 
-type FormInputProps = {
-   id: "email" | "password" | "confirmPassword";
-   error: FieldError | undefined;
-   children: React.ReactNode;
-   title: "Email" | "Password" | "Confirm password";
-};
 const FormInputBox: FC<FormInputProps> = (inputProps) => {
-   const { id, error, children, title } = inputProps;
+   const { id, error, title, register, onKeyUp } = inputProps;
 
    return (
       <label htmlFor={id} className="flex justify-between items-start mb-9">
          <p>{title}</p>
          <div className="flex flex-col ml-4 ">
-            {children}
+            <input
+               id={id}
+               type={id}
+               placeholder="example@mail.com"
+               required={true}
+               className="bg-transparent border-b-2 border-gray-300  focus:outline-none"
+               {...register}
+               onKeyUp={onKeyUp}
+            />
 
             {error && (
-               <p className="max-w-[184px] text-red-400 mt-2">
-                  {error.message}
-               </p>
+               <p className="max-w-[184px] text-red-400 mt-2">{error}</p>
             )}
          </div>
       </label>

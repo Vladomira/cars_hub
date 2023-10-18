@@ -1,5 +1,6 @@
 import { User } from "firebase/auth";
-import React, { MouseEventHandler } from "react";
+import { Dispatch, MouseEventHandler, SetStateAction } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 export type CustomButtonProps = {
    title: string;
@@ -78,7 +79,34 @@ export enum FormType {
    Signup = "Signup",
    Login = "Login",
 }
+
+export type FormIds = "email" | "password" | "confirmPassword";
+
+interface ValidationRules {
+   required: string;
+   pattern: RegExp;
+   minLength: {
+      value: number;
+      message: string;
+   };
+}
+export type FormInputProps = {
+   id: FormIds;
+   title: "Email" | "Password" | "Confirm password";
+   placeholder?: string;
+   error: string | undefined;
+   register: UseFormRegisterReturn;
+   onKeyUp: () => void;
+};
+
 // ****
+
+// form helpers:
+export type ChangeFormTypeProps = {
+   formType: FormType;
+   setFormType: Dispatch<SetStateAction<FormType>>;
+   setError: (error: string) => void;
+};
 
 // context
 export type UserFromForm = Omit<UserDataForm, "confirmPassword">;

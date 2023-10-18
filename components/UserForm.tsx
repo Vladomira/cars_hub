@@ -1,16 +1,19 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import * as rdd from "react-device-detect";
 
 import { AuthContext } from "@/context/AuthContext";
-import { FormType, UserDataForm } from "@/types";
-import { CustomButton, Notification } from "@/components";
-import { emailFormRule, passwordFormRule } from "@/lib/constants";
+import { FormIds, FormType, UserDataForm } from "@/types";
+import { CustomButton } from "@/components";
+import {
+   emailFormRule,
+   passwordFormRule,
+   passwordLengthRule,
+} from "@/lib/constants";
 import FormInputBox from "./FormInputBox";
+import { changeFormType } from "@/utils/helpers";
 
 export const UserForm = () => {
    const { login, signup, user, error, setError, loginWithGoogle } =
@@ -51,13 +54,10 @@ export const UserForm = () => {
       }
    }, [user]);
 
-   const changeFormType = () => {
-      formType === FormType.Signup
-         ? setFormType(FormType.Login)
-         : setFormType(FormType.Signup);
+   const handleKeyUp = (id: FormIds) => {
       setError("");
+      trigger(id);
    };
-
    return (
       <div className="flex flex-col justify-center items-center  text-gray-400">
          <h1 className="font-bold text-gray-300">{formType}</h1>
@@ -65,76 +65,42 @@ export const UserForm = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col mt-10 "
          >
-            <FormInputBox id={"email"} error={errors.email} title="Email">
-               <input
-                  id="email"
-                  type="email"
-                  placeholder="example@mail.com"
-                  required={true}
-                  className="bg-transparent border-b-2 border-gray-300  focus:outline-none"
-                  {...register("email", {
-                     required: "Email is Required!!!",
-                     pattern: emailFormRule,
-                  })}
-                  onKeyUp={() => {
-                     setError(""), trigger("email");
-                  }}
-               />
-            </FormInputBox>
-
+            <FormInputBox
+               id={"email"}
+               placeholder="example@mail.com"
+               title="Email"
+               error={errors.email?.message}
+               onKeyUp={() => handleKeyUp("email")}
+               register={register("email", {
+                  required: "Email is Required!!!",
+                  pattern: emailFormRule,
+               })}
+            />
             <FormInputBox
                id={"password"}
-               error={errors.password}
+               placeholder="example@mail.com"
                title="Password"
-            >
-               <input
-                  id="password"
-                  type="password"
-                  placeholder="password"
-                  autoComplete="off"
-                  required={true}
-                  className="bg-transparent border-b-2 border-gray-300  focus:outline-none"
-                  {...register("password", {
-                     required: "Password required",
-                     pattern: passwordFormRule,
-
-                     minLength: {
-                        value: 6,
-                        message: "Password must be at least 6 characters",
-                     },
-                  })}
-                  onKeyUp={() => {
-                     setError(""), trigger("password", { shouldFocus: true });
-                  }}
-               />
-            </FormInputBox>
+               error={errors.password?.message}
+               onKeyUp={() => handleKeyUp("password")}
+               register={register("password", {
+                  required: "Password required",
+                  pattern: passwordFormRule,
+                  minLength: passwordLengthRule,
+               })}
+            />
 
             {formType === FormType.Signup && (
                <FormInputBox
                   id={"confirmPassword"}
-                  error={errors.confirmPassword}
                   title="Confirm password"
-               >
-                  <input
-                     id="confirmPassword"
-                     type="password"
-                     {...register("confirmPassword", {
-                        validate: (value) =>
-                           value === watch("password", "") ||
-                           "The passwords do not match",
-                     })}
-                     autoComplete="off"
-                     onPaste={(e) => {
-                        e.preventDefault();
-                        return false;
-                     }}
-                     className=" bg-transparent border-b-2 border-gray-300  focus:outline-none"
-                     required={true}
-                     onKeyUp={() => {
-                        setError(""), trigger("confirmPassword");
-                     }}
-                  />
-               </FormInputBox>
+                  error={errors.confirmPassword?.message}
+                  onKeyUp={() => handleKeyUp("confirmPassword")}
+                  register={register("confirmPassword", {
+                     validate: (value) =>
+                        value === watch("password", "") ||
+                        "The passwords do not match",
+                  })}
+               />
             )}
 
             {error && <p className="text-red-500 mt-3">{error}</p>}
@@ -143,9 +109,10 @@ export const UserForm = () => {
                textStyles=""
                btnType="submit"
                title="Submit"
-               containerStyles="mt-10  font-bold text-gray-300 text-red-300 btn-bg"
+               containerStyles="mt-10  font-bold text-red-300 btn-bg"
             />
          </form>
+
          <CustomButton
             title="Login with Google"
             containerStyles={`flex w-full mt-6 btn-bg`}
@@ -156,10 +123,7 @@ export const UserForm = () => {
          />
          <div className="mt-10 flex">
             <div className="flex items-center">
-               {formType === FormType.Signup
-                  ? "I have account"
-                  : "I don't have account"}
-
+               {formType === FormType.Signup ? "I have account" : "Register:"}
                <CustomButton
                   title={
                      formType === FormType.Signup
@@ -168,13 +132,13 @@ export const UserForm = () => {
                   }
                   containerStyles="flex items-center ml-3  shadow-lg shadow-slate-900 bg-slate-800 rounded-lg"
                   btnType="button"
-                  handleClick={() => changeFormType()}
+                  handleClick={() =>
+                     changeFormType({ formType, setFormType, setError })
+                  }
                   textStyles="underline"
                />
             </div>
          </div>
-
-         <Notification />
       </div>
    );
 };

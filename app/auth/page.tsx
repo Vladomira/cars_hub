@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Notification } from "@/components";
 import { UserForm } from "@/components/UserForm";
 
-const overlayFormStyles = `flex w-full min-w-min max-w-[800px]
+const overlayFormStyles = `flex w-full min-w-min max-w-[900px]
             
             min-h-min
             max-h-full

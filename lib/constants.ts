@@ -116,3 +116,8 @@ export const emailFormRule: PatternRule = {
    value: emailPattern,
    message: "Invalid email address",
 };
+
+export const passwordLengthRule = {
+   value: 6,
+   message: "Password must be at least 6 characters",
+};
