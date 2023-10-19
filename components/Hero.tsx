@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { CustomButton } from ".";
+import AnimationWrapper from "./AnimationWrapper";
 
 const Hero = () => {
    return (
@@ -19,18 +20,21 @@ const Hero = () => {
                containerStyles="bg-primary-blue text-white rounded-full mt-10"
             />
          </div>
-         <div className="hero__image-container">
-            <div className="hero__image">
-               <Image
-                  src="/hero.png"
-                  alt="hero"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-                  className="object-contain"
-               />
-            </div>
-            <div className="hero__image-overlay" />
-         </div>
+         <AnimationWrapper>
+            <div className="hero__image-container">
+               <div className="hero__image">
+                  <Image
+                     src={"/hero.png"}
+                     alt="hero"
+                     fill
+                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                     className="object-contain"
+                  />
+               </div>
+
+               <div className="hero__image-overlay" />
+            </div>{" "}
+         </AnimationWrapper>
       </div>
    );
 };

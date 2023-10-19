@@ -6,6 +6,13 @@ import { useContext } from "react";
 
 import { AuthContext } from "../context/AuthContext";
 import Logo from "./Elements/Logo";
+import NavLink from "./NavLink";
+
+// const navLinks = [
+//    { title: "Home", href: "/" },
+//    { title: "Signin", href: "/auth" },
+//    { title: "Signout", href: "" },
+// ];
 
 const Navbar = () => {
    const router = useRouter();
@@ -15,7 +22,7 @@ const Navbar = () => {
       <header className="w-full absolute z-10 bg-gray-950 border-b border-gray-900">
          <nav className="max-w-[1440px] mx-auto flex justify-between items-center sm:px-16 px-6 py-4 ">
             <Logo />
-
+            <NavLink title={"Home"} href={"/"} />
             <div className="flex items-center ">
                {user?.email ? (
                   <>

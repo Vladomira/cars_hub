@@ -9,11 +9,12 @@ import {
    ShowMore,
 } from "@/components";
 import { fuels, yearsOfProduction } from "@/lib/constants";
-import { fetchCars } from "@/utils";
+import { fetchCars } from "@/utils/api";
+import { Car } from "@/types";
 
 export default function Home() {
-   const [allCars, setAllCars] = useState([]);
-   const [loading, setLoading] = useState<boolean>(false);
+   const [allCars, setAllCars] = useState<Car[]>([]);
+   const [loading, setLoading] = useState<boolean>(true);
    // search
    const [manufacturer, setManufacturer] = useState<string>("");
    const [model, setModel] = useState<string>("");
@@ -24,7 +25,6 @@ export default function Home() {
    const [limit, setLimit] = useState<number>(10);
 
    const getCars = async () => {
-      setLoading(true);
       try {
          const result = await fetchCars({
             manufacturer: manufacturer || "",
@@ -33,7 +33,8 @@ export default function Home() {
             limit: limit || 10,
             model: model || "",
          });
-         setAllCars(result);
+
+         setAllCars((prev) => [...prev, ...result]);
       } catch (error) {
          return { error: "Something went wrong!" };
       } finally {
@@ -48,6 +49,7 @@ export default function Home() {
    return (
       <>
          <Hero />
+
          <div className="mt-12 padding-x padding-y max-width" id="discover">
             <div className="home__text-container">
                <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
@@ -72,31 +74,33 @@ export default function Home() {
                </div>
             </div>
 
-            {allCars?.length > 0 ? (
+            {loading && (
+               <div className="mt-16 w-full flex-center">
+                  <Loader />
+               </div>
+            )}
+            {!loading && allCars?.length === 0 && (
+               <div className="home__error-container">
+                  <h2 className="text-black text-xl font-bold">
+                     Oops, no results
+                  </h2>
+               </div>
+            )}
+            {allCars?.length > 0 && (
                <section>
-                  <div className="home__cars-wrapper">
+                  <ul className="home__cars-wrapper">
                      {allCars?.map((car, idx) => (
-                        <CarCard car={car} key={idx} />
+                        // index is a bad variant for key but we don't have a unique string or number in car
+                        <CarCard car={car} key={idx} idx={idx} />
                      ))}
-                  </div>
+                  </ul>
 
-                  {loading && (
-                     <div className="mt-16 w-full flex-center">
-                        <Loader />
-                     </div>
-                  )}
                   <ShowMore
                      pageNumber={limit / 10}
                      isNext={limit > allCars.length}
                      setLimit={setLimit}
                   />
                </section>
-            ) : (
-               <div className="home__error-container">
-                  <h2 className="text-black text-xl font-bold">
-                     Oops, no results
-                  </h2>
-               </div>
             )}
          </div>
       </>

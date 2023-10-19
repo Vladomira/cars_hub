@@ -17,7 +17,7 @@ export type SearchManufacturerProps = {
    setSelected: (manufacturer: string) => void;
 };
 
-export type CarProps = {
+export type Car = {
    city_mpg: number;
    class: string;
    combination_mpg: number;
@@ -34,7 +34,7 @@ export type CarProps = {
 export type CardDetailsProps = {
    isOpen: boolean;
    closeModal: () => void;
-   car: CarProps;
+   car: Car;
 };
 export type FilterProps = {
    manufacturer: string;
