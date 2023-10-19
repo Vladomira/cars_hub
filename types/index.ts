@@ -1,5 +1,6 @@
 import { User } from "firebase/auth";
-import React, { MouseEventHandler } from "react";
+import { Dispatch, MouseEventHandler, SetStateAction } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 export type CustomButtonProps = {
    title: string;
@@ -16,7 +17,7 @@ export type SearchManufacturerProps = {
    setSelected: (manufacturer: string) => void;
 };
 
-export type CarProps = {
+export type Car = {
    city_mpg: number;
    class: string;
    combination_mpg: number;
@@ -33,7 +34,7 @@ export type CarProps = {
 export type CardDetailsProps = {
    isOpen: boolean;
    closeModal: () => void;
-   car: CarProps;
+   car: Car;
 };
 export type FilterProps = {
    manufacturer: string;
@@ -63,7 +64,10 @@ export type SearchBarProps = {
    setManufacturer: (manufacturer: string) => void;
    setModel: (model: string) => void;
 };
-
+export type PatternRule = {
+   value: RegExp;
+   message: string;
+};
 // User
 export type UserDataForm = {
    email: string;
@@ -75,7 +79,34 @@ export enum FormType {
    Signup = "Signup",
    Login = "Login",
 }
+
+export type FormIds = "email" | "password" | "confirmPassword";
+
+interface ValidationRules {
+   required: string;
+   pattern: RegExp;
+   minLength: {
+      value: number;
+      message: string;
+   };
+}
+export type FormInputProps = {
+   id: FormIds;
+   title: "Email" | "Password" | "Confirm password";
+   placeholder?: string;
+   error: string | undefined;
+   register: UseFormRegisterReturn;
+   onKeyUp: () => void;
+};
+
 // ****
+
+// form helpers:
+export type ChangeFormTypeProps = {
+   formType: FormType;
+   setFormType: Dispatch<SetStateAction<FormType>>;
+   setError: (error: string) => void;
+};
 
 // context
 export type UserFromForm = Omit<UserDataForm, "confirmPassword">;

@@ -1,14 +1,19 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import * as rdd from "react-device-detect";
 
 import { AuthContext } from "@/context/AuthContext";
-import { FormType, UserDataForm } from "@/types";
-import { Notification } from "@/components";
-import { emailFormRule, passwordFormRule } from "@/lib/constants";
+import { FormIds, FormType, UserDataForm } from "@/types";
+import { CustomButton } from "@/components";
+import {
+   emailFormRule,
+   passwordFormRule,
+   passwordLengthRule,
+} from "@/lib/constants";
+import FormInputBox from "./FormInputBox";
+import { changeFormType } from "@/utils/helpers";
 
 export const UserForm = () => {
    const { login, signup, user, error, setError, loginWithGoogle } =
@@ -27,19 +32,19 @@ export const UserForm = () => {
    const router = useRouter();
 
    const onSubmit = async (data: UserDataForm) => {
-      // const { email, password } = data;
-      // if (email !== "" && password !== "") {
-      //    try {
-      //       switch (formType) {
-      //          case FormType.Login:
-      //             return login({ email, password });
-      //          case FormType.Signup:
-      //             return signup({ email, password });
-      //       }
-      //    } catch (error: any) {
-      //       return error.message;
-      //    }
-      // }
+      const { email, password } = data;
+      if (email !== "" && password !== "") {
+         try {
+            switch (formType) {
+               case FormType.Login:
+                  return login({ email, password });
+               case FormType.Signup:
+                  return signup({ email, password });
+            }
+         } catch (error: any) {
+            return error.message;
+         }
+      }
    };
    useEffect(() => {
       if (user) {
@@ -49,134 +54,91 @@ export const UserForm = () => {
       }
    }, [user]);
 
-   const changeFormType = () => {
-      formType === FormType.Signup
-         ? setFormType(FormType.Login)
-         : setFormType(FormType.Signup);
+   const handleKeyUp = (id: FormIds) => {
       setError("");
+      trigger(id);
    };
-
    return (
-      <>
-         <h1 className="mt-60 mb-30">{formType}</h1>
+      <div className="flex flex-col justify-center items-center  text-gray-400">
+         <h1 className="font-bold text-gray-300">{formType}</h1>
          <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col mt-10 "
          >
-            <label htmlFor="email" className="flex justify-between mb-5">
-               <p>Email</p>
-               <input
-                  id="email"
-                  type="email"
-                  placeholder="example@mail.com"
-                  required={true}
-                  {...register("email", {
-                     required: "Email is Required!!!",
-                     pattern: emailFormRule,
-                  })}
-                  onKeyUp={() => {
-                     setError(""), trigger("email");
-                  }}
-               />
-               {errors.email && (
-                  <small className="text-danger">{errors.email.message}</small>
-               )}
-            </label>
-            <label htmlFor="password" className="flex justify-between flex-col">
-               <div className="flex ">
-                  {" "}
-                  <p>Password</p>
-                  <input
-                     id="password"
-                     type="password"
-                     placeholder="password"
-                     autoComplete="off"
-                     className={`form-control ml-3 ${
-                        errors.password && "invalid"
-                     }`}
-                     required={true}
-                     {...register("password", {
-                        required: "You must specify a password",
-                        pattern: passwordFormRule,
+            <FormInputBox
+               id={"email"}
+               placeholder="example@mail.com"
+               title="Email"
+               error={errors.email?.message}
+               onKeyUp={() => handleKeyUp("email")}
+               register={register("email", {
+                  required: "Email is Required!!!",
+                  pattern: emailFormRule,
+               })}
+            />
+            <FormInputBox
+               id={"password"}
+               placeholder="example@mail.com"
+               title="Password"
+               error={errors.password?.message}
+               onKeyUp={() => handleKeyUp("password")}
+               register={register("password", {
+                  required: "Password required",
+                  pattern: passwordFormRule,
+                  minLength: passwordLengthRule,
+               })}
+            />
 
-                        minLength: {
-                           value: 6,
-                           message: "Password must be at least 6 characters",
-                        },
-                     })}
-                     onKeyUp={() => {
-                        setError(""),
-                           trigger("password", { shouldFocus: true });
-                     }}
-                  />
-               </div>
-
-               {errors.password && (
-                  <small className="text-danger">
-                     {errors.password.message}
-                  </small>
-               )}
-            </label>
-            {error && <p className="text-red-500 mt-3">{error}</p>}
             {formType === FormType.Signup && (
-               <div>
-                  <label>Confirm your password</label>
-                  <input
-                     id="confirmPassword"
-                     type="password"
-                     {...register("confirmPassword", {
-                        validate: (value) =>
-                           value === watch("password", "") ||
-                           "The passwords do not match",
-                     })}
-                     placeholder="confirm password"
-                     autoComplete="off"
-                     onPaste={(e) => {
-                        e.preventDefault();
-                        return false;
-                     }}
-                     className={`form-control mt-4`}
-                     required={true}
-                     onKeyUp={() => {
-                        setError(""), trigger("confirmPassword");
-                     }}
-                  />
-                  {errors.confirmPassword && (
-                     <small className="text-danger">
-                        {errors.confirmPassword.message}
-                     </small>
-                  )}
-               </div>
+               <FormInputBox
+                  id={"confirmPassword"}
+                  title="Confirm password"
+                  error={errors.confirmPassword?.message}
+                  onKeyUp={() => handleKeyUp("confirmPassword")}
+                  register={register("confirmPassword", {
+                     validate: (value) =>
+                        value === watch("password", "") ||
+                        "The passwords do not match",
+                  })}
+               />
             )}
 
-            <button type="submit" className="mt-10">
-               Submit
-            </button>
-            <button
-               type="button"
-               onClick={() => loginWithGoogle(isMobile ? "mobile" : "desktop")}
-            >
-               Login with Google
-            </button>
-            <div className="mt-10 flex">
-               <div className="flex">
-                  {formType === FormType.Signup
-                     ? "I have account"
-                     : "I don't have account"}
+            {error && <p className="text-red-500 mt-3">{error}</p>}
 
-                  <button
-                     type="button"
-                     className="ml-3"
-                     onClick={() => changeFormType()}
-                  >
-                     {formType === FormType.Signup
-                        ? FormType.Login
-                        : FormType.Signup}
-                  </button>
-               </div>
-            </div>
+            <CustomButton
+               textStyles=""
+               btnType="submit"
+               title="Submit"
+               containerStyles="mt-10  font-bold text-red-300 btn-bg"
+            />
          </form>
-         <Notification />
-      </>
+
+         <CustomButton
+            title="Login with Google"
+            containerStyles={`flex w-full mt-6 btn-bg`}
+            btnType="button"
+            handleClick={() => loginWithGoogle(isMobile ? "mobile" : "desktop")}
+            textStyles="flex-none text-gray-300 mr-2"
+            rightIcon={"/google-2.png"}
+         />
+         <div className="mt-10 flex">
+            <div className="flex items-center">
+               {formType === FormType.Signup ? "I have account" : "Register:"}
+               <CustomButton
+                  title={
+                     formType === FormType.Signup
+                        ? FormType.Login
+                        : FormType.Signup
+                  }
+                  containerStyles="flex items-center ml-3  shadow-lg shadow-slate-900 bg-slate-800 rounded-lg"
+                  btnType="button"
+                  handleClick={() =>
+                     changeFormType({ formType, setFormType, setError })
+                  }
+                  textStyles="underline"
+               />
+            </div>
+         </div>
+      </div>
    );
 };

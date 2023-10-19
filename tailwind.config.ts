@@ -24,9 +24,15 @@ module.exports = {
             },
             grey: "#747A88",
          },
+         linerGradient: {
+            "car-gradient":
+               "linear-gradient(to top,rgba(47,48,58,0.4), rgba(47,48,58,0.4))",
+         },
          backgroundImage: {
             pattern: "url('/pattern.png')",
             "hero-bg": "url('/hero-bg.png')",
+            "car-gradient":
+               "linear-gradient(to top,rgba(47,48,58,0.4), rgba(47,48,58,0.4))",
          },
       },
    },

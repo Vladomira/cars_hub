@@ -1,27 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { CarProps } from "@/types";
+import { motion, useInView } from "framer-motion";
+
+import { Car } from "@/types";
 import { CustomButton } from ".";
-import { calculateCarRent, generateCarImageUrl, makeParagraph } from "@/utils";
+import { calculateCarRent, generateCarImageUrl } from "@/utils/api";
 import CarDetails from "./CarDetails";
 import { carCharacteristics } from "@/lib/constants";
+import { makeParagraph } from "@/utils/helpers";
 
 interface CarCardprops {
-   car: CarProps;
+   car: Car;
+   idx: number;
 }
-
-const CarCard = ({ car }: CarCardprops) => {
+const CarCard = React.memo(({ car, idx }: CarCardprops) => {
    const [isOpen, setIsOpen] = useState(false);
    const { city_mpg, year, make, model, transmission, drive } = car;
 
    const normalizeName = (str: string) => str.replace(/-/g, " ");
-
    const carRent = calculateCarRent(city_mpg, year);
 
+   // animation
+   const ref = useRef(null);
+   const isInView = useInView(ref, { once: true });
    return (
-      <div className="car-card group">
+      <motion.li
+         className="car-card group "
+         ref={ref}
+         initial={{ opacity: 0, y: 30 }}
+         animate={{
+            opacity: isInView ? 1 : 0,
+            y: isInView ? 0 : 30,
+            transition: { duration: 0.7, delay: idx * 0.03 },
+         }}
+      >
          <div className="car-card__content">
             <h2 className="car-card__content-title">
                {make} {model}
@@ -81,8 +95,8 @@ const CarCard = ({ car }: CarCardprops) => {
             closeModal={() => setIsOpen(false)}
             car={car}
          />
-      </div>
+      </motion.li>
    );
-};
+});
 
 export default CarCard;
