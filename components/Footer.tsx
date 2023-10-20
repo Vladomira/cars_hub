@@ -25,7 +25,7 @@ const Footer = () => {
                         >
                            {link.title === "Socials" && (
                               <Image
-                                 src={`/${item.title.toLowerCase()}.svg`}
+                                 src={`/socials//${item.title.toLowerCase()}.svg`}
                                  alt={"item.title"}
                                  width={20}
                                  height={20}
