@@ -18,9 +18,11 @@ const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
                   setSelected(e);
                }}
             >
-               <div className="relative w-fit z-10">
-                  <Listbox.Button className="custom-filter__btn">
-                     <span className="block truncate">{selected.title}</span>
+               <div className="relative w-fit z-10 ">
+                  <Listbox.Button className="custom-filter__btn ">
+                     <span className="block truncate font-medium text-slate-600">
+                        {selected.title}
+                     </span>
                      <Image
                         src="/chevron-up-down.svg"
                         width={20}
@@ -36,15 +38,15 @@ const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
                      leaveFrom="opacity-100"
                      leaveTo="opacity-0"
                   >
-                     <Listbox.Options className="custom-filter__options">
+                     <Listbox.Options className="custom-filter__options ">
                         {options.map((option) => (
                            <Listbox.Option
                               key={option.title}
                               className={({ active }) =>
                                  `relative cursor-default select-none py-2 px-4 ${
                                     active
-                                       ? "bg-primary-blue text-white"
-                                       : "text-gray-900"
+                                       ? "bg-slate-700 text-white"
+                                       : "text-gray-300"
                                  }`
                               }
                               value={option}

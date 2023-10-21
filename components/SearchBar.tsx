@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { SearchBarProps } from "@/types";
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
-   <button type="submit" className={`-ml-3 z-10 ${otherClasses}`}>
+   <button type="submit" className={`-ml-10 z-10 ${otherClasses}`}>
       <Image
          src={"/magnifying-glass.svg"}
          alt={"magnifying glass"}
@@ -45,9 +45,9 @@ const SearchBar = ({ setManufacturer, setModel }: SearchBarProps) => {
                />
                <SearchButton otherClasses="sm:hidden" />
             </div>
-            <div className="searchbar__item">
+            <div className="searchbar__item bg-gray-700  rounded-r-full">
                <Image
-                  src="/model-icon.png"
+                  src="/model-icon.svg"
                   width={25}
                   height={25}
                   className="absolute w-[20px] h-[20px] ml-4"
@@ -59,7 +59,7 @@ const SearchBar = ({ setManufacturer, setModel }: SearchBarProps) => {
                   value={searchModel}
                   onChange={(e) => setSearchModel(e.target.value)}
                   placeholder="Tiguan..."
-                  className="searchbar__input"
+                  className="searchbar__input text-gray-100 bg-gray-700"
                />
                <SearchButton otherClasses="sm:hidden" />
             </div>

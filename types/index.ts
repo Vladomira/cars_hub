@@ -135,3 +135,12 @@ export const initialContextState = {
 };
 
 export type DeviceType = "mobile" | "desktop";
+
+//
+export interface NavLinkProps {
+   title: string;
+   href: string;
+   children?: React.ReactNode;
+   linkStyle?: string;
+   handleClick?: () => void;
+}

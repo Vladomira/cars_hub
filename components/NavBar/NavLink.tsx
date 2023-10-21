@@ -1,23 +1,29 @@
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
-interface NavLinkProps {
-   title: string;
-   href: string;
-}
-const NavLink = ({ title, href }: NavLinkProps) => {
+import { NavLinkProps } from "@/types";
+
+const NavLink = ({
+   title,
+   href,
+   children,
+   linkStyle,
+   handleClick,
+}: NavLinkProps) => {
    const pathname = usePathname();
 
    return (
       <Link
          href={href}
+         onClick={handleClick}
          className={`${
             pathname === href ? "text-white font-bold" : "text-gray-400"
          }
-         font-medium hover:scale-110 transition duration-300  ease-in-out`}
+         font-medium hover:scale-110 hover:text-red-300 transition duration-300  ease-in-out ${linkStyle}`}
       >
          {title}
+         {children}
       </Link>
    );
 };

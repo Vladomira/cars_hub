@@ -42,7 +42,8 @@
 
 /* START: Hero styles */
 .hero {
-   @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+   /* max-w-[1440px] */
+   @apply flex xl:flex-row flex-col gap-5 px-1 relative z-0 mx-auto;
 }
 
 .hero__title {
@@ -50,7 +51,7 @@
 }
 
 .hero__subtitle {
-   @apply text-[27px] text-black-100 font-light mt-5;
+   @apply text-[27px] font-normal text-slate-50  mt-5;
 }
 
 .hero__image-container {
@@ -91,7 +92,7 @@
 
 /* START: Car Card styles */
 .car-card {
-   @apply flex flex-col p-6 justify-center items-start text-black-100 bg-primary-blue-100 hover:bg-white hover:shadow-md rounded-3xl;
+   @apply flex flex-col p-6 justify-center items-start text-black-100 bg-slate-200 hover:bg-slate-100 hover:shadow-md rounded-3xl;
 }
 
 .car-card__content {
@@ -151,11 +152,11 @@
 
 /* START: Custom Filter styles */
 .custom-filter__btn {
-   @apply relative w-full min-w-[127px] flex justify-between items-center cursor-default rounded-lg bg-white py-2 px-3 text-left shadow-md sm:text-sm border;
+   @apply relative w-full min-w-[127px] flex justify-between items-center cursor-default rounded-lg bg-gray-100 py-2 px-3 text-left shadow-md sm:text-sm border;
 }
 
 .custom-filter__options {
-   @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm;
+   @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm;
 }
 /* END: Custom Filter styles */
 
@@ -191,7 +192,7 @@
 
 /* START: searchbar styles */
 .searchbar {
-   @apply flex items-center justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl;
+   @apply flex items-start justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl;
 }
 
 .searchbar__item {
@@ -209,7 +210,7 @@
 }
 
 .search-manufacturer__input {
-   @apply w-full h-[48px] pl-12 p-4 rounded-l-full max-sm:rounded-full bg-light-white outline-none cursor-pointer text-sm;
+   @apply w-full h-[48px] pl-12 p-4 rounded-l-full max-sm:rounded-full  bg-gray-700 outline-none cursor-pointer text-sm;
 }
 
 .search-manufacturer__options {
@@ -234,6 +235,7 @@
 bg-[url('/background/red-car.jpg')] bg-cover bg-no-repeat bg-center before:content-[''] before:absolute
 before:inset-0 before:block before:bg-gradient-to-r before:from-gray-700 before:to-black before:opacity-80 before:z-[-5];
 }
+/* /hero/gradient.jpeg */
 /* *************** */
 /* example */
 .card {
@@ -270,4 +272,13 @@ before:inset-0 before:block before:bg-gradient-to-r before:from-gray-700 before:
    clip-path: path(
       "M 0 303.5 C 0 292.454 8.995 285.101 20 283.5 L 460 219.5 C 470.085 218.033 480 228.454 480 239.5 L 500 430 C 500 441.046 491.046 450 480 450 L 20 450 C 8.954 450 0 441.046 0 430 Z"
    );
+}
+
+/* side bar */
+.sidebar-nav {
+   @apply flex flex-col;
+}
+
+.sidebar-nav__links {
+   @apply flex  items-center py-4 px-8 border-b-[1px] border-gray-600;
 }

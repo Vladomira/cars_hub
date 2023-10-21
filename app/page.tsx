@@ -49,59 +49,64 @@ export default function Home() {
    return (
       <>
          <Hero />
-
-         <div className="mt-12 padding-x padding-y max-width" id="discover">
-            <div className="home__text-container">
-               <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
-               <p>Explore the cars you might like</p>
-            </div>
-            <div className="home__filters">
-               <SearchBar
-                  setManufacturer={setManufacturer}
-                  setModel={setModel}
-               />
-               <div className="home__filter-container">
-                  <CustomFilter
-                     title="fuel"
-                     options={fuels}
-                     setFilter={setFuel}
-                  />
-                  <CustomFilter
-                     title="year"
-                     options={yearsOfProduction}
-                     setFilter={setYear}
-                  />
+         <div className="pt-6  bg-gradient-to-b from-slate-800 to-stone-400">
+            <div className="padding-x padding-y max-width  ">
+               <div className="home__text-container ">
+                  <h1 className="text-4xl font-extrabold text-gray-300">
+                     Car Catalogue
+                  </h1>
+                  <p className="text-gray-300">
+                     Explore the cars you might like
+                  </p>
                </div>
-            </div>
+               <div className="home__filters">
+                  <SearchBar
+                     setManufacturer={setManufacturer}
+                     setModel={setModel}
+                  />
+                  <div className="home__filter-container">
+                     <CustomFilter
+                        title="fuel"
+                        options={fuels}
+                        setFilter={setFuel}
+                     />
+                     <CustomFilter
+                        title="year"
+                        options={yearsOfProduction}
+                        setFilter={setYear}
+                     />
+                  </div>
+               </div>
 
-            {loading && (
+               {/* {loading && (
                <div className="mt-16 w-full flex-center">
                   <Loader />
                </div>
-            )}
-            {!loading && allCars?.length === 0 && (
+            )} */}
+               {/* {!loading && allCars?.length === 0 && (
                <div className="home__error-container">
                   <h2 className="text-black text-xl font-bold">
                      Oops, no results
                   </h2>
                </div>
-            )}
-            {allCars?.length > 0 && (
-               <section>
-                  <ul className="home__cars-wrapper">
-                     {allCars?.map((car, idx) => (
-                        // index is a bad variant for key but we don't have a unique string or number in car
-                        <CarCard car={car} key={idx} idx={idx} />
-                     ))}
-                  </ul>
+            )} */}
+               {allCars?.length > 0 && (
+                  <section>
+                     <ul className="home__cars-wrapper">
+                        {allCars?.map((car, idx) => (
+                           // index is a bad variant for key but we don't have a unique string or number in car
+                           <CarCard car={car} key={idx} idx={idx} />
+                        ))}
+                     </ul>
 
-                  <ShowMore
-                     pageNumber={limit / 10}
-                     isNext={limit > allCars.length}
-                     setLimit={setLimit}
-                  />
-               </section>
-            )}
+                     <ShowMore
+                        pageNumber={limit / 10}
+                        isNext={limit > allCars.length}
+                        setLimit={setLimit}
+                     />
+                  </section>
+               )}
+            </div>
          </div>
       </>
    );

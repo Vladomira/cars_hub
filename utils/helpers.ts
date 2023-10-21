@@ -1,20 +1,12 @@
 import { ChangeFormTypeProps, FormType } from "@/types";
-import { MotionValue, useTransform } from "framer-motion";
 
-export const updateSearchParams = (type: string, value: string) => {
-   "for serverside code but it is reload page";
-   const searchParams = new URLSearchParams(window.location.search);
-
-   searchParams.set(type, value);
-
-   const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
-
-   return newPathname;
-};
-
-export const isExistSearchParams = () => {
-   const searchParams = new URLSearchParams(window.location.search);
-   return searchParams.get("model") || null;
+// CarCard
+export const makeItemAnimate = (isInView: boolean, idx: number) => {
+   return {
+      opacity: isInView ? 1 : 0,
+      y: isInView ? 0 : 30,
+      transition: { duration: 0.7, delay: idx * 0.03 },
+   };
 };
 
 export const makeParagraph = (

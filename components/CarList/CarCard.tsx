@@ -5,11 +5,12 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
 import { Car } from "@/types";
-import { CustomButton } from ".";
+import { CustomButton } from "..";
 import { calculateCarRent, generateCarImageUrl } from "@/utils/api";
 import CarDetails from "./CarDetails";
 import { carCharacteristics } from "@/lib/constants";
 import { makeParagraph } from "@/utils/helpers";
+import { makeItemAnimate } from "@/utils/helpers";
 
 interface CarCardprops {
    car: Car;
@@ -30,11 +31,7 @@ const CarCard = React.memo(({ car, idx }: CarCardprops) => {
          className="car-card group "
          ref={ref}
          initial={{ opacity: 0, y: 30 }}
-         animate={{
-            opacity: isInView ? 1 : 0,
-            y: isInView ? 0 : 30,
-            transition: { duration: 0.7, delay: idx * 0.03 },
-         }}
+         animate={makeItemAnimate(isInView, idx)}
       >
          <div className="car-card__content">
             <h2 className="car-card__content-title">
@@ -72,7 +69,7 @@ const CarCard = React.memo(({ car, idx }: CarCardprops) => {
                         alt={normalizeName(item)}
                      />
 
-                     <p className="text-[14px]">
+                     <p className="text-[14px] font-medium text-gray-900 ">
                         {makeParagraph(item, drive, city_mpg, transmission)}
                      </p>
                   </div>
@@ -82,7 +79,7 @@ const CarCard = React.memo(({ car, idx }: CarCardprops) => {
             <div className="car-card__btn-container">
                <CustomButton
                   title="View More"
-                  containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
+                  containerStyles="w-full py-[16px] rounded-full bg-slate-500"
                   textStyles="text-white text-[14px] leading-[17px] font-bold"
                   rightIcon="/right-arrow.svg"
                   handleClick={() => setIsOpen(true)}

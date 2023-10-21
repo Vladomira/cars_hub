@@ -13,6 +13,7 @@ module.exports = {
          },
          colors: {
             "black-100": "#2B2C35",
+
             "primary-blue": {
                DEFAULT: "#2B59FF",
                100: "#F5F8FF",
@@ -30,7 +31,8 @@ module.exports = {
          },
          backgroundImage: {
             pattern: "url('/pattern.png')",
-            "hero-bg": "url('/hero-bg.png')",
+            "hero-bg": "url('/hero/hero-bg.png')",
+
             "car-gradient":
                "linear-gradient(to top,rgba(47,48,58,0.4), rgba(47,48,58,0.4))",
          },
