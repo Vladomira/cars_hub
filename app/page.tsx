@@ -9,7 +9,7 @@ import {
    ShowMore,
 } from "@/components";
 import { fuels, yearsOfProduction } from "@/lib/constants";
-import { fetchCars } from "@/utils/api";
+import { fetchCars } from "@/api";
 import { Car } from "@/types";
 
 export default function Home() {

@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 
 import { Car } from "@/types";
 import { CustomButton } from "..";
-import { calculateCarRent, generateCarImageUrl } from "@/utils/api";
+import { calculateCarRent, generateCarImageUrl } from "@/api";
 import CarDetails from "./CarDetails";
 import { carCharacteristics } from "@/lib/constants";
 import { makeParagraph } from "@/utils/helpers";
