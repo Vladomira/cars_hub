@@ -18,7 +18,7 @@ const Hero = () => {
 
                <CustomButton
                   title="Explore Cars"
-                  containerStyles="bg-slate-700 text-white rounded-full mt-10"
+                  containerStyles="btn-animation btn-bg  text-white rounded-full mt-10"
                />
             </div>
             <div className="hero__image-container ">

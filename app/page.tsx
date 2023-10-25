@@ -78,18 +78,18 @@ export default function Home() {
                   </div>
                </div>
 
-               {/* {loading && (
-               <div className="mt-16 w-full flex-center">
-                  <Loader />
-               </div>
-            )} */}
-               {/* {!loading && allCars?.length === 0 && (
-               <div className="home__error-container">
-                  <h2 className="text-black text-xl font-bold">
-                     Oops, no results
-                  </h2>
-               </div>
-            )} */}
+               {loading && (
+                  <div className="mt-16 w-full flex-center">
+                     <Loader />
+                  </div>
+               )}
+               {!loading && allCars?.length === 0 && (
+                  <div className="home__error-container">
+                     <h2 className="text-black text-xl font-bold">
+                        Oops, no results
+                     </h2>
+                  </div>
+               )}
                {allCars?.length > 0 && (
                   <section>
                      <ul className="home__cars-wrapper">

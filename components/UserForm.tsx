@@ -60,7 +60,7 @@ export const UserForm = () => {
    };
    return (
       <div className="flex flex-col justify-center items-center  text-gray-400">
-         <h1 className="font-bold text-gray-300">{formType}</h1>
+         <h1 className="font-bold text-[20px] text-gray-300">{formType}</h1>
          <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col mt-10 "
@@ -78,7 +78,7 @@ export const UserForm = () => {
             />
             <FormInputBox
                id={"password"}
-               placeholder="example@mail.com"
+               placeholder="password"
                title="Password"
                error={errors.password?.message}
                onKeyUp={() => handleKeyUp("password")}
@@ -109,16 +109,16 @@ export const UserForm = () => {
                textStyles=""
                btnType="submit"
                title="Submit"
-               containerStyles="mt-10  font-bold text-red-300 btn-bg"
+               containerStyles="mt-10  font-bold text-red-300 btn-bg rounded-lg  btn-animation"
             />
          </form>
 
          <CustomButton
             title="Login with Google"
-            containerStyles={`flex w-full mt-6 btn-bg`}
+            containerStyles={`flex w-full mt-6 btn-bg  btn-animation`}
             btnType="button"
             handleClick={() => loginWithGoogle(isMobile ? "mobile" : "desktop")}
-            textStyles="flex-none text-gray-300 mr-2"
+            textStyles="flex-none text-gray-300 mr-2 rounded-lg"
             rightIcon={"/google-2.png"}
          />
          <div className="mt-10 flex">
@@ -130,7 +130,7 @@ export const UserForm = () => {
                         ? FormType.Login
                         : FormType.Signup
                   }
-                  containerStyles="flex items-center ml-3  shadow-lg shadow-slate-900 bg-slate-800 rounded-lg"
+                  containerStyles="flex items-center ml-3 btn-bg rounded-lg  btn-animation"
                   btnType="button"
                   handleClick={() =>
                      changeFormType({ formType, setFormType, setError })
