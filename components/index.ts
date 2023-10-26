@@ -11,7 +11,8 @@ import ShowMore from "./ShowMore";
 import Loader from "./Loader";
 import SideBar from "./SideBar";
 import Logo from "./Elements/Logo";
-import CarCard from "./CarList/CarCard";
+import CarsList from "./CarList";
+import NoResult from "./Elements/NoResult";
 
 export {
    // home
@@ -26,8 +27,11 @@ export {
    SearchBar,
    CustomFilter,
    SearchManufacturer,
-   CarCard,
    Notification,
    ShowMore,
    Loader,
+   NoResult,
+
+   //
+   CarsList,
 };

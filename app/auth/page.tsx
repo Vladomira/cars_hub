@@ -1,6 +1,4 @@
 import React from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { Notification } from "@/components";
 import { UserForm } from "@/components/UserForm";
 
 function Signup() {
@@ -9,7 +7,6 @@ function Signup() {
          <div className={"form__overlay rounded-lg"}>
             <UserForm />
          </div>
-         <Notification />
       </div>
    );
 }

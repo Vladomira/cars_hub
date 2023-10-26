@@ -1,16 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-   CarCard,
+   CarsList,
    CustomFilter,
    Hero,
    Loader,
+   NoResult,
    SearchBar,
    ShowMore,
+   Notification,
 } from "@/components";
 import { fuels, yearsOfProduction } from "@/lib/constants";
 import { fetchCars } from "@/api";
 import { Car } from "@/types";
+import { toast } from "react-toastify";
 
 export default function Home() {
    const [allCars, setAllCars] = useState<Car[]>([]);
@@ -34,9 +37,9 @@ export default function Home() {
             model: model || "",
          });
 
-         setAllCars((prev) => [...prev, ...result]);
+         setAllCars(result);
       } catch (error) {
-         return { error: "Something went wrong!" };
+         toast.warn("Something went wrong");
       } finally {
          setLoading(false);
       }
@@ -83,21 +86,10 @@ export default function Home() {
                      <Loader />
                   </div>
                )}
-               {!loading && allCars?.length === 0 && (
-                  <div className="home__error-container">
-                     <h2 className="text-black text-xl font-bold">
-                        Oops, no results
-                     </h2>
-                  </div>
-               )}
+               {!loading && allCars?.length === 0 && <NoResult />}
                {allCars?.length > 0 && (
                   <section>
-                     <ul className="home__cars-wrapper">
-                        {allCars?.map((car, idx) => (
-                           // index is a bad variant for key but we don't have a unique string or number in car
-                           <CarCard car={car} key={idx} idx={idx} />
-                        ))}
-                     </ul>
+                     <CarsList cars={allCars} />
 
                      <ShowMore
                         pageNumber={limit / 10}
@@ -106,8 +98,9 @@ export default function Home() {
                      />
                   </section>
                )}
-            </div>
-         </div>
+            </div>{" "}
+         </div>{" "}
+         <Notification />
       </>
    );
 }

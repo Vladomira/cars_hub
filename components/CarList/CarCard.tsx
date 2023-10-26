@@ -6,11 +6,14 @@ import { motion, useInView } from "framer-motion";
 
 import { Car } from "@/types";
 import { CustomButton } from "..";
-import { calculateCarRent, generateCarImageUrl } from "@/api";
+import { generateCarImageUrl } from "@/api";
 import CarDetails from "./CarDetails";
 import { carCharacteristics } from "@/lib/constants";
-import { makeParagraph } from "@/utils/helpers";
-import { makeItemAnimate } from "@/utils/helpers";
+import {
+   calculateCarRent,
+   makeItemAnimate,
+   makeParagraph,
+} from "@/utils/helpers";
 
 interface CarCardprops {
    car: Car;
@@ -28,6 +31,7 @@ const CarCard = React.memo(({ car, idx }: CarCardprops) => {
    const isInView = useInView(ref, { once: true });
    return (
       <motion.li
+         data-testid="cars-item"
          className="car-card group "
          ref={ref}
          initial={{ opacity: 0, y: 30 }}
