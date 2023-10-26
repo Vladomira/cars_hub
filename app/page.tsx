@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
    CarsList,
    CustomFilter,
@@ -13,7 +14,6 @@ import {
 import { fuels, yearsOfProduction } from "@/lib/constants";
 import { fetchCars } from "@/api";
 import { Car } from "@/types";
-import { toast } from "react-toastify";
 
 export default function Home() {
    const [allCars, setAllCars] = useState<Car[]>([]);

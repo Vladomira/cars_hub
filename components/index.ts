@@ -6,13 +6,14 @@ import SearchBar from "./SearchBar";
 import CustomFilter from "./CustomFilter";
 import SearchManufacturer from "./SearchManufacturer";
 
-import Notification from "./Notification";
+import Notification from "./Elements/Notification";
 import ShowMore from "./ShowMore";
-import Loader from "./Loader";
+import Loader from "./Elements/Loader";
 import SideBar from "./SideBar";
 import Logo from "./Elements/Logo";
 import CarsList from "./CarList";
 import NoResult from "./Elements/NoResult";
+import { UserForm } from "./UserForm/UserForm";
 
 export {
    // home
@@ -34,4 +35,6 @@ export {
 
    //
    CarsList,
+   //
+   UserForm,
 };
