@@ -1,11 +1,15 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import { AuthContext } from "@/context/AuthContext";
 import NavLink from "../NavBar/NavLink";
+import { Modal, UserSettings } from "..";
 
-const SideBarNav = ({ setIsOpen }: { setIsOpen: (prop: boolean) => void }) => {
+import { SideBarNavProps } from "@/types";
+
+const SideBarNav = ({ setIsOpen }: SideBarNavProps) => {
    const { user, logout } = useContext(AuthContext);
+   const [isOpenModal, setIsOpenModal] = useState(true);
 
    return (
       <div className="sidebar-nav">
@@ -22,26 +26,51 @@ const SideBarNav = ({ setIsOpen }: { setIsOpen: (prop: boolean) => void }) => {
          </div>
 
          {user?.email ? (
-            <div className="sidebar-nav__links">
-               <Image
-                  src={"/nav-links/logout.svg"}
-                  alt={"Logout"}
-                  width={30}
-                  height={30}
-                  className="mr-2"
-               />
-               <NavLink
-                  title={"Sign out"}
-                  href={""}
-                  linkStyle=""
-                  handleClick={() => logout()}
-               />
-            </div>
+            <>
+               <div className="sidebar-nav__links">
+                  <Image
+                     src={"/nav-links/logout.svg"}
+                     alt={"logout-icon"}
+                     width={30}
+                     height={30}
+                     className="mr-2"
+                  />
+                  <NavLink
+                     title={"Sign out"}
+                     href={""}
+                     linkStyle=""
+                     handleClick={() => logout()}
+                  />
+               </div>
+               <div className="sidebar-nav__links">
+                  <Image
+                     src={"/nav-links/settings.svg"}
+                     alt={"settings"}
+                     width={30}
+                     height={30}
+                     className="mr-2"
+                  />
+
+                  <NavLink
+                     title={"Settings"}
+                     href={""}
+                     handleClick={() => setIsOpenModal(true)}
+                  />
+               </div>
+               <Modal
+                  isOpen={isOpenModal}
+                  //min-[320px]:w-[280px]min-[768px]:w-[380px]   min-[1000px]:min-w-[623px] w-full
+                  modalBoxStyles="min-[320px]:w-[280px] min-[768px]:w-[380px] min-[1000px]:min-w-[623px]   bg-zinc-800"
+                  closeModal={() => setIsOpenModal(false)}
+               >
+                  <UserSettings />
+               </Modal>
+            </>
          ) : (
             <div className="sidebar-nav__links">
                <Image
                   src={"/nav-links/login.svg"}
-                  alt={"Logout"}
+                  alt={"login-icon"}
                   width={30}
                   height={30}
                   className="mr-2"

@@ -1,15 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
-
 import { useState } from "react";
 import Image from "next/image";
 
 import NavLink from "./NavLink";
 import { Logo, SideBar } from "..";
+import { UserPreferenceProvider } from "@/context/UserPreferenceContext";
 
 const Navbar = () => {
-   const [openSideBar, setOpenSideBar] = useState(false);
-   const router = useRouter();
+   const [openSideBar, setOpenSideBar] = useState(true);
 
    return (
       <>
@@ -31,7 +29,9 @@ const Navbar = () => {
                   />
                </button>
             </nav>
-            <SideBar setIsOpen={setOpenSideBar} isOpen={openSideBar} />
+            <UserPreferenceProvider>
+               <SideBar setIsOpen={setOpenSideBar} isOpen={openSideBar} />
+            </UserPreferenceProvider>
          </header>
       </>
    );

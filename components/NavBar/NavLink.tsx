@@ -20,7 +20,7 @@ const NavLink = ({
          className={`${
             pathname === href ? "text-white font-bold" : "text-gray-400"
          }
-         font-medium hover:scale-110 hover:text-red-300 transition duration-300  ease-in-out ${linkStyle}`}
+         font-medium hover:scale-110 hover:text-grey-300 transition duration-300  ease-in-out ${linkStyle}`}
       >
          {title}
          {children}

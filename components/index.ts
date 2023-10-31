@@ -13,7 +13,10 @@ import SideBar from "./SideBar";
 import Logo from "./Elements/Logo";
 import CarsList from "./CarList";
 import NoResult from "./Elements/NoResult";
-import { UserForm } from "./UserForm/UserForm";
+import UserForm from "./UserForm/UserForm";
+import Modal from "./Elements/Modal";
+import Profile from "./UserSettings/SettingsPicture";
+import UserSettings from "./UserSettings";
 
 export {
    // home
@@ -28,13 +31,19 @@ export {
    SearchBar,
    CustomFilter,
    SearchManufacturer,
+
+   // elements
    Notification,
    ShowMore,
    Loader,
    NoResult,
+   Modal,
+   Profile,
 
    //
    CarsList,
    //
    UserForm,
+   //
+   UserSettings,
 };

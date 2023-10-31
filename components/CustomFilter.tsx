@@ -18,7 +18,7 @@ const CustomFilter = ({ options, setFilter }: CustomFilterProps) => {
                   setSelected(e);
                }}
             >
-               <div className="relative w-fit z-10 ">
+               <div className="relative w-fit z-9 ">
                   <Listbox.Button className="custom-filter__btn ">
                      <span className="block truncate font-medium text-slate-600">
                         {selected.title}

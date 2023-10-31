@@ -6,11 +6,13 @@ import React, {
    useState,
    ReactNode,
 } from "react";
-import { auth, provider } from "@/firebase/config";
+import { auth, provider, storage } from "@/firebase/config";
 import {
    AuthInstance,
+   ChildrenProps,
    DeviceType,
    initialContextState,
+   UploadFileProps,
    UserFromForm,
 } from "@/types";
 import {
@@ -24,14 +26,13 @@ import {
    User,
    onAuthStateChanged,
    signInWithRedirect,
+   updateProfile,
 } from "firebase/auth";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-type AuthProviderProps = {
-   children: ReactNode;
-};
 export const AuthContext = createContext<AuthInstance>(initialContextState);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
    const [user, setUser] = useState<User | null>(null);
    const [loading, setLoading] = useState<boolean>(true);
    const [error, setError] = useState<string>("");
@@ -46,6 +47,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       return () => unsubscribe();
    }, []);
+
+   const reloadUser = async () => {
+      await user?.reload();
+      setUser(auth.currentUser as User);
+   };
 
    const login = async ({ email, password }: UserFromForm) => {
       try {
@@ -94,6 +100,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             loginWithGoogle,
             error,
             setError,
+            reloadUser,
          }}
       >
          {children}

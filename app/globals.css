@@ -135,7 +135,7 @@
 }
 
 .car-card__btn-container {
-   @apply hidden group-hover:flex absolute bottom-0 w-full z-10;
+   @apply hidden group-hover:flex absolute bottom-0 w-full;
 }
 /* END: Car Card styles */
 
@@ -284,4 +284,89 @@ before:inset-0 before:block before:bg-gradient-to-r before:from-gray-700 before:
 
 .sidebar-nav__links {
    @apply flex  items-center py-4 px-8 border-b-[1px] border-gray-600;
+}
+
+/* carousel */
+.embla {
+   --slide-spacing: 1rem;
+   --slide-size: 100%;
+   --slide-height: 19rem;
+   /* padding: 1.6rem; */
+}
+.embla__container {
+   backface-visibility: hidden;
+   display: flex;
+   touch-action: pan-y;
+   margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla__slide {
+   flex: 0 0 var(--slide-size);
+   min-width: 0;
+   padding-left: var(--slide-spacing);
+   position: relative;
+}
+.embla__slide--img {
+   display: block;
+   height: var(--slide-height);
+   width: 100%;
+   /* max-width: 400px;
+   height: 200px; */
+   object-fit: cover;
+}
+.embla-thumbs {
+   --thumbs-slide-spacing: 0.8rem;
+   --thumbs-slide-height: 9rem;
+   margin-top: var(--thumbs-slide-spacing);
+}
+.embla-thumbs__viewport {
+   overflow: hidden;
+}
+.embla-thumbs__container {
+   display: flex;
+   flex-direction: row;
+   margin-left: calc(var(--thumbs-slide-spacing) * -1);
+}
+.embla-thumbs__slide {
+   flex: 0 0 28%;
+   min-width: 0;
+   padding-left: var(--thumbs-slide-spacing);
+   position: relative;
+}
+@media (min-width: 576px) {
+   .embla-thumbs__slide {
+      flex: 0 0 18%;
+   }
+}
+
+.embla-thumbs__slide--button {
+   -webkit-appearance: none;
+   background-color: transparent;
+   touch-action: manipulation;
+   display: block;
+   text-decoration: none;
+   cursor: pointer;
+   border: 0;
+   padding: 0;
+   margin: 0;
+   width: 100%;
+   opacity: 0.2;
+   transition: opacity 0.2s;
+}
+.embla-thumbs__slide--selected .embla-thumbs__slide--button {
+   opacity: 1;
+}
+.embla-thumbs__slide--img {
+   display: block;
+   height: var(--thumbs-slide-height);
+   width: 100%;
+   object-fit: cover;
+}
+
+/*  */
+input[type="file"] {
+   display: none;
+}
+.input-file {
+   @apply flex items-center py-2 px-6 shadow-md shadow-gray-700 bg-slate-300 rounded-xl font-medium text-lg;
 }

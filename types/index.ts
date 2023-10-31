@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { Dispatch, MouseEventHandler, SetStateAction } from "react";
+import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 export type CustomButtonProps = {
@@ -109,7 +109,14 @@ export type ChangeFormTypeProps = {
 };
 
 // context
+export type ChildrenProps = {
+   children: ReactNode;
+};
 export type UserFromForm = Omit<UserDataForm, "confirmPassword">;
+export type UploadFileProps = {
+   photo: Blob | Uint8Array | ArrayBuffer;
+   setLoading: (prop: boolean) => void;
+};
 export type AuthInstance = {
    user: User | null;
    setUser: (user: User) => void;
@@ -120,6 +127,7 @@ export type AuthInstance = {
    loginWithGoogle: (device: DeviceType) => void;
    error: string;
    setError: (error: string) => void;
+   reloadUser: () => void;
 };
 
 export const initialContextState = {
@@ -132,8 +140,32 @@ export const initialContextState = {
    logout: () => {},
    error: "",
    setError: () => {},
+   reloadUser: () => {},
 };
 
+// preference
+export type UserStylesInstance = {
+   userPhoto: string;
+   setUserPhoto: (picture: string) => void;
+   changeUserPhoto: (props: UploadFileProps) => void;
+   userBackground: string;
+   setUserBackground: (photo: string) => void;
+   changeUserBack: (photo: string) => void;
+};
+export const initialUserStyles = {
+   userPhoto: "",
+   setUserPhoto: () => {},
+   changeUserPhoto: () => {},
+   userBackground: "",
+   setUserBackground: () => {},
+   changeUserBack: () => {},
+};
+export type UserImageProps = {
+   path: string;
+   setImage: (prop: string) => void;
+};
+
+//
 export type DeviceType = "mobile" | "desktop";
 
 //
@@ -144,3 +176,23 @@ export interface NavLinkProps {
    linkStyle?: string;
    handleClick?: () => void;
 }
+
+// modal
+export interface ModalProps {
+   isOpen: boolean;
+   closeModal: () => void;
+   children: ReactNode;
+   modalBoxStyles: string;
+}
+
+//
+export interface SideBarNavProps {
+   setIsOpen: (prop: boolean) => void;
+}
+
+//
+export type ThumbProps = {
+   selected: boolean;
+   onClick: () => void;
+   image: string;
+};

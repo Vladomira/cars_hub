@@ -1,4 +1,6 @@
+import { storage } from "@/firebase/config";
 import { ChangeFormTypeProps, FormType } from "@/types";
+import { StorageReference, getDownloadURL, ref } from "firebase/storage";
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
    const basePricePerDay = 50; // Base rental price per day in dollars
@@ -51,4 +53,19 @@ export const changeFormType = ({
       ? setFormType(FormType.Login)
       : setFormType(FormType.Signup);
    setError("");
+};
+
+// user preference
+export const createStorageRef = (path: string, userId: string | undefined) => {
+   const photoStoragePath = `${path}/${userId}`;
+   const storageRef = ref(storage, `${photoStoragePath}`);
+   return storageRef;
+};
+export const downloadUserImage = async (
+   storageRef: StorageReference,
+   setImage: (arg: string) => void
+) => {
+   const photoURL = await getDownloadURL(storageRef);
+   setImage(photoURL);
+   return photoURL;
 };
