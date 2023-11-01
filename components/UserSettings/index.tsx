@@ -1,39 +1,31 @@
 "use client";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { Tab } from "@headlessui/react";
 
-import BackgroundsList from "./SettingsBackground";
+import SettingsImages from "./SettingsImages";
 import SettingsEmailColor from "./SettingsEmailColor";
 import UserArea from "../SideBar/UserArea";
-import SettingsPicture from "./SettingsPicture";
 import { settingList } from "@/lib/constants";
 import { UserPreferenceContext } from "@/context/UserPreferenceContext";
-import { AuthContext } from "@/context/AuthContext";
-
-// export const tabsContentList = [
-//    <BackgroundsList />,
-//    <SettingsPicture />,
-//    <SettingsEmailColor />,
-// ];
 
 const UserSettings = () => {
-   const { user } = useContext(AuthContext);
-   const { userPhoto, userBackground } = useContext(UserPreferenceContext);
-   // const [userPicture, setUserPicture] = useState<string>(userPhoto);
-   // const [userBack, setUserBack] = useState<string>(userBackground);
-
-   // useEffect(() => {
-   //    if (user) {
-   //       setUserPicture(userPhoto);
-   //       setUserBack(userBackground);
-   //    }
-   // }, [user?.photoURL]);
+   const { userPhoto, emailColor, userBackground } = useContext(
+      UserPreferenceContext
+   );
+   const [color, setColor] = useState<string>(emailColor);
+   const [photo, setPhoto] = useState<string>(userPhoto);
+   const [backgroundTest, setBackgroundTest] = useState<string>(userBackground);
 
    return (
       <div className="flex flex-col  ">
-         <div className="flex justify-center pb-4 border-b-[1px] border-gray-600">
+         <div className="flex justify-center pb-6 border-b-[1px] border-gray-600">
             <UserArea
-               boxStyles={"min-[320px]:w-[232px] min-[768px]:w-[332px]"}
+               boxStyles={
+                  "min-[320px]:w-[232px] min-[768px]:w-[332px] rounded-md"
+               }
+               color={color}
+               photo={photo}
+               backgroundTest={backgroundTest}
             />
          </div>
 
@@ -52,8 +44,8 @@ const UserSettings = () => {
                               className={`flex justify-start outline-none pt-2 pb-2 pr-4 pl-2  border-b-[1px] border-gray-600
                          ${
                             selected
-                               ? "bg-gray-300 text-slay-400 font-medium rounded-l"
-                               : "bg-slay-500 text-gray-400 "
+                               ? "bg-slate-300 text-slate-800 font-semibold rounded-l"
+                               : "text-gray-400 "
                          }
                          `}
                            >
@@ -64,18 +56,21 @@ const UserSettings = () => {
                   ))}
                </Tab.List>
                <Tab.Panels
-                  className={" pl-[1.6rem] pt-[1.6rem] min-h-[486px]  "}
+                  className={
+                     "pl-[1.6rem] pt-[1.6rem] min-h-[486px] block m-auto  "
+                  }
                >
                   <Tab.Panel>
-                     <BackgroundsList />
+                     <SettingsImages
+                        setImage={setBackgroundTest}
+                        image={backgroundTest}
+                        photo={photo}
+                        setPhoto={setPhoto}
+                     />
                   </Tab.Panel>
 
                   <Tab.Panel>
-                     <SettingsPicture />
-                  </Tab.Panel>
-
-                  <Tab.Panel>
-                     <SettingsEmailColor />
+                     <SettingsEmailColor setColor={setColor} color={color} />
                   </Tab.Panel>
                </Tab.Panels>
             </Tab.Group>

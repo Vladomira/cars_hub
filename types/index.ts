@@ -17,6 +17,7 @@ export type SearchManufacturerProps = {
    setSelected: (manufacturer: string) => void;
 };
 
+// car
 export type Car = {
    city_mpg: number;
    class: string;
@@ -36,6 +37,8 @@ export type CardDetailsProps = {
    closeModal: () => void;
    car: Car;
 };
+//
+
 export type FilterProps = {
    manufacturer: string;
    year: number | string;
@@ -68,6 +71,7 @@ export type PatternRule = {
    value: RegExp;
    message: string;
 };
+
 // User
 export type UserDataForm = {
    email: string;
@@ -82,14 +86,6 @@ export enum FormType {
 
 export type FormIds = "email" | "password" | "confirmPassword";
 
-interface ValidationRules {
-   required: string;
-   pattern: RegExp;
-   minLength: {
-      value: number;
-      message: string;
-   };
-}
 export type FormInputProps = {
    id: FormIds;
    title: "Email" | "Password" | "Confirm password";
@@ -98,7 +94,6 @@ export type FormInputProps = {
    register: UseFormRegisterReturn;
    onKeyUp: () => void;
 };
-
 // ****
 
 // form helpers:
@@ -108,15 +103,13 @@ export type ChangeFormTypeProps = {
    setError: (error: string) => void;
 };
 
-// context
+// context:
+// user
 export type ChildrenProps = {
    children: ReactNode;
 };
 export type UserFromForm = Omit<UserDataForm, "confirmPassword">;
-export type UploadFileProps = {
-   photo: Blob | Uint8Array | ArrayBuffer;
-   setLoading: (prop: boolean) => void;
-};
+
 export type AuthInstance = {
    user: User | null;
    setUser: (user: User) => void;
@@ -132,10 +125,10 @@ export type AuthInstance = {
 
 export const initialContextState = {
    user: null,
-   setUser: (user: User) => {},
+   setUser: () => {},
    loading: false,
-   login: (user: UserFromForm) => {},
-   signup: (user: UserFromForm) => {},
+   login: () => {},
+   signup: () => {},
    loginWithGoogle: () => {},
    logout: () => {},
    error: "",
@@ -147,28 +140,41 @@ export const initialContextState = {
 export type UserStylesInstance = {
    userPhoto: string;
    setUserPhoto: (picture: string) => void;
-   changeUserPhoto: (props: UploadFileProps) => void;
+   changeUserPhoto: (props: ChangePictureProp) => void;
    userBackground: string;
-   setUserBackground: (photo: string) => void;
-   changeUserBack: (photo: string) => void;
+   setUserBackground: (picture: string) => void;
+
+   changeUserBack: (props: ChangePictureProp) => void;
+   emailColor: string;
+   setEmailColor: (color: string) => void;
+   changeEmailColor: (color: string) => void;
 };
 export const initialUserStyles = {
    userPhoto: "",
    setUserPhoto: () => {},
    changeUserPhoto: () => {},
+
    userBackground: "",
    setUserBackground: () => {},
    changeUserBack: () => {},
+
+   emailColor: "",
+   setEmailColor: () => {},
+   changeEmailColor: () => {},
 };
 export type UserImageProps = {
    path: string;
    setImage: (prop: string) => void;
 };
 
-//
+export type ChangePictureProp = {
+   photo: Blob;
+   setLoading: (prop: boolean) => void;
+};
+// ****
+
 export type DeviceType = "mobile" | "desktop";
 
-//
 export interface NavLinkProps {
    title: string;
    href: string;
@@ -185,14 +191,34 @@ export interface ModalProps {
    modalBoxStyles: string;
 }
 
-//
 export interface SideBarNavProps {
    setIsOpen: (prop: boolean) => void;
 }
 
-//
+export type UserAreaProps = {
+   boxStyles?: string;
+   color?: string;
+   photo: string;
+   sideBar?: boolean;
+   backgroundTest?: string;
+};
 export type ThumbProps = {
    selected: boolean;
    onClick: () => void;
    image: string;
 };
+
+export type PhotoProps = {
+   photo: string;
+   setPhoto: (prop: string) => void;
+};
+export type SettingsPictureProps = {
+   image: string;
+   setImage: (prop: string) => void;
+};
+
+export type SettingsEmailColorProps = {
+   setColor: (color: string) => void;
+   color: string;
+};
+export type imageType = "background" | "picture";

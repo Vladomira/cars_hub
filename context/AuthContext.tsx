@@ -1,18 +1,11 @@
 "use client";
-import React, {
-   createContext,
-   useContext,
-   useEffect,
-   useState,
-   ReactNode,
-} from "react";
-import { auth, provider, storage } from "@/firebase/config";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth, provider } from "@/firebase/config";
 import {
    AuthInstance,
    ChildrenProps,
    DeviceType,
    initialContextState,
-   UploadFileProps,
    UserFromForm,
 } from "@/types";
 import {
@@ -26,9 +19,7 @@ import {
    User,
    onAuthStateChanged,
    signInWithRedirect,
-   updateProfile,
 } from "firebase/auth";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const AuthContext = createContext<AuthInstance>(initialContextState);
 

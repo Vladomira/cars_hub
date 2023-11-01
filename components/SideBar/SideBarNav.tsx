@@ -6,10 +6,13 @@ import NavLink from "../NavBar/NavLink";
 import { Modal, UserSettings } from "..";
 
 import { SideBarNavProps } from "@/types";
+import { UserPreferenceContext } from "@/context/UserPreferenceContext";
+import { backgroundInit } from "@/lib/constants";
 
 const SideBarNav = ({ setIsOpen }: SideBarNavProps) => {
    const { user, logout } = useContext(AuthContext);
-   const [isOpenModal, setIsOpenModal] = useState(true);
+   const { setUserBackground } = useContext(UserPreferenceContext);
+   const [isOpenModal, setIsOpenModal] = useState(false);
 
    return (
       <div className="sidebar-nav">
@@ -39,7 +42,9 @@ const SideBarNav = ({ setIsOpen }: SideBarNavProps) => {
                      title={"Sign out"}
                      href={""}
                      linkStyle=""
-                     handleClick={() => logout()}
+                     handleClick={() => {
+                        logout(), setUserBackground(backgroundInit);
+                     }}
                   />
                </div>
                <div className="sidebar-nav__links">

@@ -37,12 +37,12 @@ const Modal = ({
                      leaveTo="opacity-0 scale-95"
                   >
                      <Dialog.Panel
-                        className={`relative overflow-y-auto transform rounded-2xl bg-white p-6 shadow-xl transition-all ${modalBoxStyles}`}
+                        className={`relative overflow-y-auto transform rounded-2xl py-9 px-8 shadow-xl transition-all ${modalBoxStyles}`}
                      >
                         <button
                            type="button"
                            onClick={closeModal}
-                           className="absolute top-2 right-2 z-10 p-2 bg-primary-blue-100 rounded-full"
+                           className="absolute top-2 right-2 z-10 p-1 border-[#d1d5db] border-[1px] rounded-full"
                         >
                            <Image
                               src={"/close.svg"}

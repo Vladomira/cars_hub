@@ -41,6 +41,9 @@
 .btn-animation {
    @apply hover:scale-110 transition duration-300  ease-in-out cursor-pointer;
 }
+.btn-upload {
+   @apply btn-animation bg-slate-300 shadow-md shadow-slate-600 text-slate-800  font-bold rounded disabled:opacity-50;
+}
 /* END: General styles */
 
 /* START: Hero styles */
@@ -310,8 +313,9 @@ before:inset-0 before:block before:bg-gradient-to-r before:from-gray-700 before:
    display: block;
    height: var(--slide-height);
    width: 100%;
+   height: 200px;
    /* max-width: 400px;
-   height: 200px; */
+    */
    object-fit: cover;
 }
 .embla-thumbs {
@@ -368,5 +372,5 @@ input[type="file"] {
    display: none;
 }
 .input-file {
-   @apply flex items-center py-2 px-6 shadow-md shadow-gray-700 bg-slate-300 rounded-xl font-medium text-lg;
+   @apply flex items-center py-1 px-2  text-gray-300 font-medium rounded text-sm;
 }

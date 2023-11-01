@@ -57,7 +57,7 @@ export const changeFormType = ({
 
 // user preference
 export const createStorageRef = (path: string, userId: string | undefined) => {
-   const photoStoragePath = `${path}/${userId}`;
+   const photoStoragePath = `${path}/${userId}/${userId}`;
    const storageRef = ref(storage, `${photoStoragePath}`);
    return storageRef;
 };

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { ThumbProps } from "@/types";
 
-const Thumb = ({ selected, onClick, image }: ThumbProps) => {
+const ThumbCarousel = ({ selected, onClick, image }: ThumbProps) => {
    return (
       <li
          className={"embla-thumbs__slide".concat(
@@ -26,4 +26,4 @@ const Thumb = ({ selected, onClick, image }: ThumbProps) => {
    );
 };
 
-export default Thumb;
+export default ThumbCarousel;

@@ -6,11 +6,16 @@ import {
    UserStylesInstance,
    initialUserStyles,
    ChildrenProps,
-   UploadFileProps,
    UserImageProps,
+   ChangePictureProp,
 } from "@/types";
 import { AuthContext } from "./AuthContext";
 import { createStorageRef, downloadUserImage } from "@/utils/helpers";
+import {
+   getEmailColorFromDb,
+   pushEmailColorToDb,
+} from "@/firebase/preference.ts";
+import { backgroundInit, pictureInit, emailColorInit } from "@/lib/constants";
 
 export const UserPreferenceContext =
    createContext<UserStylesInstance>(initialUserStyles);
@@ -18,43 +23,50 @@ export const UserPreferenceContext =
 export const UserPreferenceProvider: React.FC<ChildrenProps> = ({
    children,
 }) => {
-   const [userPhoto, setUserPhoto] = useState<string>("/tech/user.jpeg");
-   const [userBackground, setUserBackground] = useState<string>(
-      "/background/abstract4.jpeg"
-   );
+   const [userPhoto, setUserPhoto] = useState<string>(pictureInit);
+   const [userBackground, setUserBackground] = useState<string>(backgroundInit);
+   const [emailColor, setEmailColor] = useState<string>(emailColorInit);
    const { user, reloadUser } = useContext(AuthContext);
 
    useEffect(() => {
       if (user) {
-         getUserImage({ path: "pictures", setImage: setUserPhoto });
-         getUserImage({ path: "background", setImage: setUserBackground });
+         try {
+            getUserImage({ path: "pictures", setImage: setUserPhoto });
+            getUserImage({ path: "background", setImage: setUserBackground });
+            getEmailColor();
+         } catch (error: any) {
+            console.log("error:", error);
+         }
       }
-   }, [user]);
+   }, [user, emailColor]);
 
    const getUserImage = async ({ path, setImage }: UserImageProps) => {
       const storageRef = createStorageRef(path, user?.uid);
       try {
          const downloadURL = await getDownloadURL(storageRef);
-         setImage(downloadURL);
-      } catch (error) {
-         console.log("error", error);
-         throw error;
+         if (downloadURL) {
+            setImage(downloadURL);
+         } else {
+            return;
+         }
+      } catch (error: any) {
+         if (error.code === "storage/object-not-found") {
+            console.log("You don't have a custom picture yet");
+         }
       }
    };
-   const changeUserBack = async (photo: string) => {
-      const photoLocation = `/background/${photo}`;
-
-      const imageBlob = await fetch(photoLocation).then((response) =>
-         response.blob()
-      );
-
+   const changeUserBack = async ({ photo, setLoading }: ChangePictureProp) => {
       const storageRef = createStorageRef("background", user?.uid);
-      await uploadBytes(storageRef, imageBlob);
+
+      setLoading(true);
+      await uploadBytes(storageRef, photo);
 
       await downloadUserImage(storageRef, setUserBackground);
+
+      setLoading(false);
    };
 
-   const changeUserPhoto = async ({ photo, setLoading }: UploadFileProps) => {
+   const changeUserPhoto = async ({ photo, setLoading }: ChangePictureProp) => {
       const storageRef = createStorageRef("pictures", user?.uid);
       setLoading(true);
 
@@ -64,9 +76,22 @@ export const UserPreferenceProvider: React.FC<ChildrenProps> = ({
          await updateProfile(user, { photoURL });
          reloadUser();
       }
+
       setLoading(false);
    };
 
+   const changeEmailColor = async (color: string) => {
+      if (user) {
+         pushEmailColorToDb(color, user.uid);
+         setEmailColor(color);
+      }
+   };
+   const getEmailColor = async () => {
+      if (user) {
+         const color = await getEmailColorFromDb(user.uid);
+         if (color) setEmailColor(color);
+      }
+   };
    return (
       <UserPreferenceContext.Provider
          value={{
@@ -76,6 +101,9 @@ export const UserPreferenceProvider: React.FC<ChildrenProps> = ({
             userBackground,
             setUserBackground,
             changeUserBack,
+            emailColor,
+            setEmailColor,
+            changeEmailColor,
          }}
       >
          {children}

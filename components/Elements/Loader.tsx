@@ -7,14 +7,14 @@ const Loader = () => {
       <LineWave
          height="150"
          width="150"
-         color="#007aff"
+         color="#1e293b"
          ariaLabel="line-wave"
          wrapperStyle={{}}
          wrapperClass=""
          visible={true}
-         firstLineColor="#007aff"
-         middleLineColor="#007aff"
-         lastLineColor="#007aff"
+         firstLineColor="#1e293b"
+         middleLineColor="#1e293b"
+         lastLineColor="#64748B"
       />
    );
 };

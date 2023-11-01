@@ -138,4 +138,10 @@ export const userBackgrounds = [
    "waves.webp",
 ];
 
-export const settingList = ["Background", "Photo", "Email color"];
+// "Background", "Photo",
+export const settingList = ["Change image", "Email color"];
+
+// preferences
+export const emailColorInit = "#004141";
+export const pictureInit = "/tech/user.jpeg";
+export const backgroundInit = "/background/abstract4.jpeg";
