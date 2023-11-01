@@ -37,7 +37,7 @@ const Modal = ({
                      leaveTo="opacity-0 scale-95"
                   >
                      <Dialog.Panel
-                        className={`relative overflow-y-auto transform rounded-2xl py-9 px-8 shadow-xl transition-all ${modalBoxStyles}`}
+                        className={`relative max-w-lg max-h-[90vh]  transform rounded-2xl  shadow-xl transition-all ${modalBoxStyles}`}
                      >
                         <button
                            type="button"

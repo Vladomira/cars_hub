@@ -17,7 +17,7 @@ const UserSettings = () => {
    const [backgroundTest, setBackgroundTest] = useState<string>(userBackground);
 
    return (
-      <div className="flex flex-col  ">
+      <div className="flex flex-col  scrollbar__child ">
          <div className="flex justify-center pb-6 border-b-[1px] border-gray-600">
             <UserArea
                boxStyles={

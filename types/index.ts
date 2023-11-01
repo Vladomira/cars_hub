@@ -10,6 +10,7 @@ export type CustomButtonProps = {
    textStyles?: string;
    rightIcon?: string;
    isDisabled?: boolean;
+   iconStyles?: string;
 };
 
 export type SearchManufacturerProps = {

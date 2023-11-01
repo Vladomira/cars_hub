@@ -13,8 +13,8 @@ const Loader = () => {
          wrapperClass=""
          visible={true}
          firstLineColor="#1e293b"
-         middleLineColor="#1e293b"
-         lastLineColor="#64748B"
+         middleLineColor="#64748B"
+         lastLineColor="#9CA3AF"
       />
    );
 };
