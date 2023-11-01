@@ -7,7 +7,7 @@ import { Logo, SideBar } from "..";
 import { UserPreferenceProvider } from "@/context/UserPreferenceContext";
 
 const Navbar = () => {
-   const [openSideBar, setOpenSideBar] = useState(true);
+   const [openSideBar, setOpenSideBar] = useState(false);
 
    return (
       <>
