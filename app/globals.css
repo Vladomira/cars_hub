@@ -241,9 +241,25 @@
 bg-[url('/background/red-car.jpg')] bg-cover bg-no-repeat bg-center before:content-[''] before:absolute
 before:inset-0 before:block before:bg-gradient-to-r before:from-gray-700 before:to-black before:opacity-80 before:z-[-5];
 }
-/* /hero/gradient.jpeg */
+
+.scrollbar {
+   width: 100%;
+   height: 100%;
+   min-height: 800px;
+   overflow: hidden;
+   position: relative;
+}
+.scrollbar__child {
+   position: absolute;
+   padding: 38px 38px 24px;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: -19px;
+   overflow-y: scroll;
+}
 /* *************** */
-/* example */
+
 .card {
    font-size: 164px;
    width: 300px;

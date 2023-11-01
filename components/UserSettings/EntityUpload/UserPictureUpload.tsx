@@ -31,6 +31,8 @@ const UserPictureUpload = ({ setImage }: SettingsPictureProps) => {
                btnType="button"
                handleClick={() => handleClick("picture")}
                isDisabled={disabled}
+               rightIcon="/tech/upload.svg"
+               iconStyles="ml-3"
             />
          </div>
       </>

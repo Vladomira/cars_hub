@@ -64,8 +64,7 @@ const SideBarNav = ({ setIsOpen }: SideBarNavProps) => {
                </div>
                <Modal
                   isOpen={isOpenModal}
-                  //min-[320px]:w-[280px]min-[768px]:w-[380px]   min-[1000px]:min-w-[623px] w-full
-                  modalBoxStyles="min-[320px]:w-[280px] min-[768px]:w-[380px] min-[1000px]:min-w-[623px]   bg-zinc-800"
+                  modalBoxStyles=" scrollbar min-[320px]:w-[280px] min-[768px]:w-[380px] min-[1000px]:min-w-[623px] overflow-y-scroll py-9 px-8   bg-zinc-800"
                   closeModal={() => setIsOpenModal(false)}
                >
                   <UserSettings />
