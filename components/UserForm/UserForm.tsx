@@ -15,7 +15,7 @@ import {
 import FormInputBox from "./FormInputBox";
 import { changeFormType } from "@/utils/helpers";
 
-export const UserForm = () => {
+const UserForm = () => {
    const { login, signup, user, error, setError, loginWithGoogle } =
       useContext(AuthContext);
    const {
@@ -142,3 +142,4 @@ export const UserForm = () => {
       </div>
    );
 };
+export default UserForm;

@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
    images: {
-      domains: ["cdn.imagin.studio"],
+      domains: [
+         "cdn.imagin.studio",
+         "firebasestorage.googleapis.com",
+         "lh3.googleusercontent.com",
+      ],
    },
    async headers() {
       return [

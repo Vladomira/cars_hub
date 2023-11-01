@@ -107,6 +107,7 @@ export const carCharacteristics = ["steering-wheel", "tire", "gas"];
 export const passwordPattern: RegExp = /^(?=.*\d)(?=.*\W).+/;
 export const emailPattern: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
+// form
 export const passwordFormRule: PatternRule = {
    value: passwordPattern,
    message:
@@ -121,3 +122,26 @@ export const passwordLengthRule = {
    value: 6,
    message: "Password must be at least 6 characters",
 };
+
+// sidebar
+export const userBackgrounds = [
+   "abstract.jpeg",
+   "abstract4.jpeg",
+   "art.webp",
+   "black-triangles.jpg",
+   "dual.jpg",
+   "ford.jpg",
+   "red-car.jpg",
+   "red.jpg",
+   "round.jpg",
+   "triangles.jpg",
+   "waves.webp",
+];
+
+// "Background", "Photo",
+export const settingList = ["Change image", "Email color"];
+
+// preferences
+export const emailColorInit = "#004141";
+export const pictureInit = "/tech/user.jpeg";
+export const backgroundInit = "/background/abstract4.jpeg";
