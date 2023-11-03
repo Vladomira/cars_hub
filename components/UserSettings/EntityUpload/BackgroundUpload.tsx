@@ -25,7 +25,7 @@ const BackgroundUpload = ({ setImage }: SettingsPictureProps) => {
             } 
             `}
             btnType="button"
-            handleClick={() => handleClick("picture")}
+            handleClick={() => handleClick("background")}
             isDisabled={disabled}
             rightIcon="/tech/upload.svg"
             iconStyles="ml-3"
