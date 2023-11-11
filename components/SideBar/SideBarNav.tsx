@@ -7,7 +7,7 @@ import { Modal, UserSettings } from "..";
 
 import { SideBarNavProps } from "@/types/sidebar";
 import { UserPreferenceContext } from "@/context/UserPreferenceContext";
-import { backgroundInit } from "@/lib/constants";
+import { backgroundInit } from "@/lib/sidebar";
 
 const SideBarNav = ({ setIsOpen }: SideBarNavProps) => {
   const { user, logout } = useContext(AuthContext);
