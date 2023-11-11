@@ -98,8 +98,8 @@ export default function Home() {
                      />
                   </section>
                )}
-            </div>{" "}
-         </div>{" "}
+            </div>
+         </div>
          <Notification />
       </>
    );

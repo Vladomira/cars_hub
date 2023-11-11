@@ -16,7 +16,8 @@
     "plugins": [
       {
         "name": "next"
-      }
+      },
+      { "name": "@trivago/prettier-plugin-sort-imports" }
     ],
     "paths": {
       "@/*": ["./*"]
