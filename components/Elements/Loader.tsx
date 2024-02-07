@@ -3,8 +3,6 @@ import React from "react";
 import { LineWave } from "react-loader-spinner";
 
 const Loader = () => {
-  console.log("from spiner");
-
   return (
     <LineWave
       height="150"

@@ -17,7 +17,7 @@ export type AuthInstance = {
   login: (user: UserFromForm) => void;
   signup: (user: UserFromForm) => void;
   logout: () => void;
-  loginWithGoogle: (device: DeviceType) => void;
+  loginWithGoogle: () => void;
   error: string;
   setError: (error: string) => void;
   reloadUser: () => void;

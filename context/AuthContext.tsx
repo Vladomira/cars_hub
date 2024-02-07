@@ -57,15 +57,13 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
   const logout = async () => await logoutAuth();
 
   // google
-  const loginWithGoogle = async (device: DeviceType) => {
+  const loginWithGoogle = async () => {
     try {
-      if (device === "mobile") {
-        signInWithRedirect(auth, provider);
-      }
-      const result = await loginGoogle(device);
+      const result = await loginGoogle();
       if (result) {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken; //if need
+        const token = credential?.accessToken; //if need to save to localstorage
+
         setUser(result.user);
       }
     } catch (error: any) {

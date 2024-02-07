@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import * as rdd from "react-device-detect";
 
 import { AuthContext } from "@/context/AuthContext";
 import { FormIds, FormType } from "@/types/form";
@@ -28,7 +27,6 @@ const UserForm = () => {
     setValue,
   } = useForm<UserDataForm>();
   const [formType, setFormType] = useState<FormType>(FormType.Signup);
-  const isMobile = rdd.isMobile;
 
   const router = useRouter();
 
@@ -114,7 +112,7 @@ const UserForm = () => {
         title="Login with Google"
         containerStyles={`flex w-full mt-6 btn-bg  btn-animation`}
         btnType="button"
-        handleClick={() => loginWithGoogle(isMobile ? "mobile" : "desktop")}
+        handleClick={() => loginWithGoogle()}
         textStyles="flex-none text-gray-300 mr-2 rounded-lg"
         rightIcon={"/google-2.png"}
       />
